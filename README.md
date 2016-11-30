@@ -45,7 +45,6 @@ At a high level, this project will develop along the following path:
 
 * (unevaluated) Use Git and GitHub to work collaboratively, develop in smaller groups, and resolve merge conflicts
 
-
 ## Getting Started
 
 ### Define the Relationship with Your Group
@@ -100,6 +99,8 @@ Create full CRUD functionality for a station with the following characteristics:
 Be sure to normalize the table(s) that you build to hold this information, and to use restful routes. At the end of this iteration, you should be able to view an index of all stations, view a page for a single station, create a station, edit a station, and delete a station from either the index or the show pages.
 
 ### Iteration 2
+
+Download the dataset available [here](https://www.kaggle.com/benhamner/sf-bay-area-bike-share). This will include all of the CSV files that you will be using in this project. Since these files are large, we have set up your project directory structure and `.gitignore` so that when you add these files to the `/db/csv/` directory they will not be pushed up to GitHub. However, this also means that each of the members of your team will need to download these files independently.
 
 Create a seed file in your `/db` directory and add the `station.csv` file to your `/db/csv/` directory. When you run `ruby db/seed.rb` your development database should be populated with the information from the `station.csv` file. Your index should include a total of seventy stations.
 
