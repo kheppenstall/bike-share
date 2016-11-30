@@ -16,7 +16,7 @@ At a high level, this project will develop along the following path:
 * Iteration 6: Add information to the station dashboard using trip information, and create a trip dashboard with an analysis of trips taken.
 * Iteration 7: Allow users to enter weather information.
 * Iteration 8: Update the seed file to consume weather information.
-* Iteration 9: Update the trip dashboard with additional analytics regarding the relationship between weather and trips taken.
+* Iteration 9: Create a weather dashboard and update the trip dashboard with additional analytics regarding the relationship between weather and trips taken.
 
 ## Learning Goals
 
@@ -99,8 +99,6 @@ Create full CRUD functionality for a station with the following characteristics:
 
 Be sure to normalize the table(s) that you build to hold this information, and to use restful routes. At the end of this iteration, you should be able to view an index of all stations, view a page for a single station, create a station, edit a station, and delete a station from either the index or the show pages.
 
-*QUESTION: do we want to delete the normalize piece here? Is taking the city name out of this table overkill?*
-
 ### Iteration 2
 
 Create a seed file in your `/db` directory and add the `station.csv` file to your `/db/csv/` directory. When you run `ruby db/seed.rb` your development database should be populated with the information from the `station.csv` file. Your index should include a total of seventy stations.
@@ -133,10 +131,12 @@ Create full CRUD functionality for a trip with the following characteristics:
 
 As with Iteration 1, be sure that you are working to normalize your database. This may mean using references to existing tables. At the end of this iteration users should be able to visit the following routes:
 
-* `/trips` (*QUESTION: Take this out? Paginate? Is there an alternative we'd like to include?*)
+* `/trips`
 * `/trips/:id`
 * `/trips/new`
 * `/trips/:id/edit`
+
+When a user visits the `/trips` path, they should only see the first thirty trips taken organized by date. On that page, there should also be a button to see the next thirty trips. Once a user visits a second page, there should be buttons to move both forward and backward in time.
 
 Additionally, users should be able to delete a trip from the views rendered at both `/trips/:id` and `/trips`.
 
@@ -147,7 +147,7 @@ Add the `trip.csv` file to your `db/csv` directory, and update your `seed.rb` fi
 
 ### Iteration 6
 
-Create a trips dashbord route. When you visit `/trip-dashboard` users should be shown a page with the following information:
+Create a trips dashbord route. When you visit `/trips-dashboard` users should be shown a page with the following information:
 
 * Average duration of a ride.
 * Longest ride.
@@ -186,12 +186,14 @@ Create full CRUD functionality for a day's weather conditions with the following
 
 At the end of this iteration users should be able to visit the following routes:
 
-* `/conditions` (*QUESTION: Do we paginate? Other alternative?*)
+* `/conditions`
 * `/conditions/:id`
 * `/conditions/new`
 * `/conditions/:id/edit`
 
-Additionally, users should be able to delete a trip from the views rendered at both `/weather/:id` and `/weather`.
+As with `/trips`, users should only be shown the weather conditions for thirty days when they visit `/conditions` and should be able to navigate to other pages with forward/backward buttons.
+
+Additionally, users should be able to delete a the weather conditions for a particular date from the views rendered at both `/conditions/:id` and `/conditions`.
 
 ### Iteration 8
 
