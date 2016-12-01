@@ -104,7 +104,11 @@ You can use ActiveRecord's [validations feature](http://guides.rubyonrails.org/a
 
 **Be sure to have a test for each individual validation.**
 
-Also, be sure to normalize the table(s) that you build to hold this information, and to use restful routes. What's normalization you ask? Check out the homework assignments for Day 4 [here](https://github.com/turingschool/homework/blob/master/module-2-homework.markdown) and this [overview](https://gist.github.com/Carmer/f9e060bf1ac30e3ab7b3). At the end of this iteration, you should be able to view an index of all stations, view a page for a single station, create a station, edit a station, and delete a station from either the index or the show pages.
+Also, be sure to normalize the table(s) that you build to hold this information, and to use restful routes. What's normalization you ask? Check out the homework assignments for Day 4 [here](https://github.com/turingschool/homework/blob/master/module-2-homework.markdown) and this [overview](https://gist.github.com/Carmer/f9e060bf1ac30e3ab7b3). 
+
+**Hint:** Any data that will be repeated in a significant amount of rows in your `stations` table should probably be extracted to its own table.
+
+At the end of this iteration, you should be able to view an index of all stations, view a page for a single station, create a station, edit a station, and delete a station from either the index or the show pages.
 
 ### Iteration 2
 
