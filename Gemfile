@@ -12,6 +12,6 @@ group :development, :test do
   gem 'tux'
   gem 'capybara'
   gem 'launchy'
-  gem 'rack-text'
+  gem 'rack-test'
 end
 
