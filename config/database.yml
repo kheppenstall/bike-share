@@ -1,14 +1,14 @@
 # specify which database and adapter to use for which environment
 
 development:
-  adapter: sqlite3
+  adapter: postgresql
   database: db/bike-share-development
 
 test:
-  adapter: sqlite3
+  adapter: postgresql
   database: db/bike-share-test
 
 production:
-  adapter: sqlite3
+  adapter: postgresql
   database: db/bike-share-production
 
