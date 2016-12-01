@@ -1,4 +1,4 @@
-# bike-share
+# Bike Share
 
 ## Abstract
 
