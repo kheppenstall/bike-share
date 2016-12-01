@@ -2,13 +2,13 @@
 
 development:
   adapter: postgresql
-  database: db/bike-share-development
+  database: bike-share-development
 
 test:
   adapter: postgresql
-  database: db/bike-share-test
+  database: bike-share-test
 
 production:
   adapter: postgresql
-  database: db/bike-share-production
+  database: bike-share-production
 
