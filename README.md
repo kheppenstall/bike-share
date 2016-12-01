@@ -96,7 +96,15 @@ Create full CRUD functionality for a station with the following characteristics:
 * city
 * installation date
 
-Be sure to normalize the table(s) that you build to hold this information, and to use restful routes. At the end of this iteration, you should be able to view an index of all stations, view a page for a single station, create a station, edit a station, and delete a station from either the index or the show pages.
+Once you have the `Station` model started, finish it off by creating validations for the `Station` attributes.
+
+* All the attributes must be present in the request.
+
+You can use ActiveRecord's [validations feature](http://guides.rubyonrails.org/active_record_validations.html) to make sure no record is saved without having all attributes present.
+
+**Be sure to have a test for each individual validation.**
+
+Also, be sure to normalize the table(s) that you build to hold this information, and to use restful routes. What's normalization you ask? Check out the homework assignments for Day 4 [here](https://github.com/turingschool/homework/blob/master/module-2-homework.markdown) and this [overview](https://gist.github.com/Carmer/f9e060bf1ac30e3ab7b3). At the end of this iteration, you should be able to view an index of all stations, view a page for a single station, create a station, edit a station, and delete a station from either the index or the show pages.
 
 ### Iteration 2
 
@@ -129,6 +137,8 @@ Create full CRUD functionality for a trip with the following characteristics:
 * Bike ID
 * Subscription Type
 * Zip Code
+
+As with `Station`'s, all attributes of a `Trip` need to be present to ensure data integrity. Don't forget your validations and tests for each validation.
 
 As with Iteration 1, be sure that you are working to normalize your database. This may mean using references to existing tables. At the end of this iteration users should be able to visit the following routes:
 
