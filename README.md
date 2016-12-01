@@ -98,7 +98,7 @@ Create full CRUD functionality for a station with the following characteristics:
 
 Once you have the `Station` model started, finish it off by creating validations for the `Station` attributes.
 
-* All the attributes must be present in the request.
+* All the attributes must be present.
 
 You can use ActiveRecord's [validations feature](http://guides.rubyonrails.org/active_record_validations.html) to make sure no record is saved without having all attributes present.
 
