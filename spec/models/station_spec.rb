@@ -2,70 +2,67 @@ require './spec/spec_helper'
 
 describe "Station" do
   describe "attributes" do
+
+    before :each do
+      @station = Station.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009", city_id: 2)
+    end
+
     it "has name" do
-      Station.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009")
+      expect(@station.name).to eq("Dock")
+    end
+
+    it "has dock count" do
+      expect(@station.dock_count).to eq(20)
+    end
+
+    it "has an installation date" do
+      expect(@station.installation_date).to eq("07/21/2009")
+    end
+
+    it "has a city id" do
+      expect(@station.city_id).to eq(2)
+    end
+  end
+
+  describe "validates" do
+    it "presence of name" do
+      invalid_station = Station.create(dock_count: 20, installation_date: "07/21/2009", city_id: 2)
+      
+      expect(invalid_station).to be_invalid
+    end
+
+    it "presence of dock count" do
+      invalid_station = Station.create(name: "Dock", installation_date: "07/21/2009", city_id: 2)
+      
+      expect(invalid_station).to be_invalid
+    end
+
+    it "presence of installation date" do
+      invalid_station = Station.create(name: "Dock", dock_count: 20, city_id: 2)
+     
+      expect(invalid_station).to be_invalid
+    end
+
+    it "presence of city id" do
+      invalid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009")
+      
+      expect(invalid_station).to be_invalid
+    end
+
+    it "uniqueness of name" do
+      valid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009", city_id: 2)
+      invalid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009", city_id: 2)
+      
+      expect(valid_station).to be_valid
+      expect(invalid_station).to be_invalid
+    end
+  end
+
+  describe "associates" do
+    it "with city" do
+      city = City.create(name: "Denver")
+      station = city.stations.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009")
+      expect(station.city_id).to eq(city.id)
     end
   end
 end
-
-
-# describe "Film" do
-  
-#   describe ".total_sales" do
-    
-#     it "returns the total sales for all films" do
-#       Film.create(title: "Film1", year: 2012, box_office_sales: 3)
-#       Film.create(title: "Film2", year: 2013, box_office_sales: 2)
-#       expect(Film.total_sales).to eq(5)
-#     end
-
-#     it "returns zero when there are no films" do
-#       expect(Film.total_sales).to eq(0)
-#     end
-
-#     it "scopes down to a single director" do
-#       director_one = Director.create(name: "Name1")
-#       director_one.films.create(title: "Film1", year: 2012, box_office_sales: 3)
-#       director_two = Director.create(name: "Name2")
-#       director_two.films.create(title: "Film2", year: 2013, box_office_sales: 2)
-#       expect(director_one.films.total_sales).to eq(3)
-#     end
-#   end
-
-#   describe ".average_sales" do
-    
-#     it "returns the average sales for all films" do
-#       Film.create(title: "Film1", year: 2012, box_office_sales: 3)
-#       Film.create(title: "Film2", year: 2013, box_office_sales: 2)
-#       expect(Film.average_sales).to eq(2.5)
-#     end
-
-#     it "returns zero when there are no films" do
-#       expect(Film.average_sales).to eq(0)
-#     end
-#   end
-
-#   describe "validations" do
-    
-#     it "presence of title" do
-#       invalid_film = Film.create(year: 2012, box_office_sales: 3)
-#       expect(invalid_film).to be_invalid
-#     end
-
-#     it "uniqueness of title" do
-#       film_one = Film.create(title: "Repeated Title", year: 2012, box_office_sales: 3)
-#       film_two = Film.new(title: "Repeated Title", year: 2012, box_office_sales: 3)
-#       expect(film_two).to be_invalid
-#     end
-
-#     it "presence of year" do
-#       invalid_film = Film.new(title: "Title", box_office_sales: 3)
-#       expect(invalid_film).to be_invalid
-#     end
-
-#     it "presence of box office sales" do
-#       invalid_film = Film.create(title: "Title", year: 2012)
-#       expect(invalid_film).to be_invalid
-#     end
-#   end
-# end
