@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/kheppenstall/bike-share.png?label=ready&title=Ready)](https://waffle.io/kheppenstall/bike-share)
 [![Stories in Ready](https://badge.waffle.io/kheppenstall/bike-share.svg?label=ready&title=Ready)](http://waffle.io/kheppenstall/bike-share)
 
 # Bike Share
