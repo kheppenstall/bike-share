@@ -1,0 +1,22 @@
+<h1><%= @station.name %></h1>
+
+<div>
+  <ul>
+    <li>City: <%= @station.city.name %></li>
+    <li>Dock Count: <%= @station.dock_count %></li>
+    <li>Installation Date: <%= @station.installation_date %></li>
+  </ul>
+</div>
+
+<a class="btn btn-primary" href="/stations">
+  <i class="glyphicon glyphicon-circle-arrow-left"></i>
+    Return</a><br>
+
+<a class="btn btn-warning" href="/stations/<%= @station.id %>/edit">
+  <i class="glyphicon glyphicon-pencil"></i>
+    Edit</a><br>
+
+<form action="/stations/<%= @station.id %>" class="delete-form" method="POST">
+  <input name="_method" type="hidden" value="DELETE"/>
+  <input class="btn btn-danger" type="submit" value="Delete"/>
+</form>
