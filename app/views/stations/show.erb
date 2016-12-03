@@ -8,4 +8,15 @@
   </ul>
 </div>
 
-<a href="/stations">Return to All Stations</a>
+<a class="btn btn-primary" href="/stations">
+  <i class="glyphicon glyphicon-circle-arrow-left"></i>
+    Return</a><br>
+
+<a class="btn btn-warning" href="/stations/<%= @station.id %>/edit">
+  <i class="glyphicon glyphicon-pencil"></i>
+    Edit</a><br>
+
+<form action="/stations/<%= @station.id %>" class="delete-form" method="POST">
+  <input name="_method" type="hidden" value="DELETE"/>
+  <input class="btn btn-danger" type="submit" value="Delete"/>
+</form>

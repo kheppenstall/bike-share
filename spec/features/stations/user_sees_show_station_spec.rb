@@ -23,8 +23,16 @@ describe "when user visits /stations/:id" do
   it "user returns to index" do
     visit("/stations/#{@station.id}")
 
-    click_on "Return to All Stations"
+    click_on "Return"
 
     expect(current_path).to eq("/stations")
+  end
+
+  it "user edits a station" do
+    visit("/stations/#{@station.id}")
+
+    click_on("Edit")
+
+    expect(current_path).to eq("/stations/#{@station.id}/edit")
   end
 end
