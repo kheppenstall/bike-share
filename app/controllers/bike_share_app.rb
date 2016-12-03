@@ -12,7 +12,7 @@ class BikeShareApp < Sinatra::Base
   end
 
   get '/stations/:id' do |id|
-    @station = Station.find(id.to_i)
+    @station = Station.find(id)
     erb :"stations/show"
   end
 
@@ -21,6 +21,20 @@ class BikeShareApp < Sinatra::Base
     city      = City.find_or_create_by(name: city_name)
     station   = city.stations.create(params["station"])
     redirect "/stations/#{station.id}"
+  end
+
+  get '/stations/:id/edit' do |id|
+    @station = Station.find(id)
+    erb :"stations/edit"
+  end
+
+  put '/stations/:id' do |id|
+    @station = Station.find(id)
+    city_name = params["city"]
+    city      = City.find_or_create_by(name: city_name)
+    @station.update(params["station"])
+    @station.update(city_id: city.id)
+    redirect "/stations/#{id}"
   end
 
 

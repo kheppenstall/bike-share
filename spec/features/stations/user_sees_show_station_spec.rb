@@ -19,4 +19,12 @@ describe "when user visits /stations/:id" do
     expect(page).to have_content("#{@station.dock_count}")
     expect(page).to have_content("#{@station.installation_date}")
   end
+
+  it "user returns to index" do
+    visit("/stations/#{@station.id}")
+
+    click_on "Return to All Stations"
+
+    expect(current_path).to eq("/stations")
+  end
 end
