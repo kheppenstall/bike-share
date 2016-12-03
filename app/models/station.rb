@@ -8,26 +8,26 @@ class Station < ActiveRecord::Base
   validates :city_id, presence: true
 
   def self.average_bikes_per_station
-    return 0 if Station.count == 0
+    return 0 if count == 0
     average("dock_count").round(1)
   end
 
   def self.station_with_most_bikes
-    Station.where(dock_count: max_bike_count)
+    where(dock_count: max_bike_count)
   end
 
   def self.max_bike_count
-    return 0 if Station.count == 0
-    Station.maximum(:dock_count)
+    return 0 if count == 0
+    maximum(:dock_count)
   end
 
   def self.station_with_fewest_bikes
-    Station.where(dock_count: min_bike_count)
+    where(dock_count: min_bike_count)
   end
 
   def self.min_bike_count
     return 0 if Station.count == 0
-    Station.minimum(:dock_count)
+    minimum(:dock_count)
   end
 
   def installation_time
@@ -35,12 +35,11 @@ class Station < ActiveRecord::Base
   end
 
   def self.stations_with_date
-    Station.all.find_all {|station| station.installation_time}
+    all.find_all {|station| station.installation_time}
   end
 
   def self.newest_station
     stations_with_date.min_by {|station| station.installation_time}
-
   end
 
   def self.oldest_station
