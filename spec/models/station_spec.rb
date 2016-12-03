@@ -7,6 +7,10 @@ describe "Station" do
       @station = Station.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009", city_id: 2)
     end
 
+    it "has an id" do
+      expect(@station.id).to eq(1)
+    end
+    
     it "has name" do
       expect(@station.name).to eq("Dock")
     end
