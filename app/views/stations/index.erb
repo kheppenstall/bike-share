@@ -1,0 +1,10 @@
+
+<h1>Stations</h1>
+
+<div>
+  <ul>
+  <% @stations.each do |station| %>
+      <h2><a href="/stations/<%= station.id %>"><%= station.name %>, <%= station.city.name %></a></h2>
+  <% end %>
+</ul>
+</div>

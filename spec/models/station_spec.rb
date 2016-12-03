@@ -27,32 +27,32 @@ describe "Station" do
   describe "validates" do
     it "presence of name" do
       invalid_station = Station.create(dock_count: 20, installation_date: "07/21/2009", city_id: 2)
-      
+
       expect(invalid_station).to be_invalid
     end
 
     it "presence of dock count" do
       invalid_station = Station.create(name: "Dock", installation_date: "07/21/2009", city_id: 2)
-      
+
       expect(invalid_station).to be_invalid
     end
 
     it "presence of installation date" do
       invalid_station = Station.create(name: "Dock", dock_count: 20, city_id: 2)
-     
+
       expect(invalid_station).to be_invalid
     end
 
     it "presence of city id" do
       invalid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009")
-      
+
       expect(invalid_station).to be_invalid
     end
 
     it "uniqueness of name" do
       valid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009", city_id: 2)
       invalid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009", city_id: 2)
-      
+
       expect(valid_station).to be_valid
       expect(invalid_station).to be_invalid
     end
@@ -62,6 +62,7 @@ describe "Station" do
     it "with city" do
       city = City.create(name: "Denver")
       station = city.stations.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009")
+      
       expect(station.city_id).to eq(city.id)
     end
   end
