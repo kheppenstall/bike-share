@@ -30,18 +30,18 @@ describe 'Station dashboard' do
       station_one = Station.create(name: "Station One", dock_count: 0, installation_date: "01/22/2016", city_id: 1)
       station_two = Station.create(name: "Station Two", dock_count: 20, installation_date: "02/20/2017", city_id: 1)
 
-      expect(Station.station_with_most_bikes.first).to eq(station_two)
+      expect(Station.station_with_most_bikes).to eq(station_two.name)
     end
 
     it 'finds multiple station with most bikes' do
       Station.create(name: "Station One", dock_count: 0, installation_date: "01/22/2016", city_id: 1)
       Station.create(name: "Station Two", dock_count: 0, installation_date: "02/20/2017", city_id: 1)
 
-      expect(Station.station_with_most_bikes.count).to eq(2)
+      expect(Station.station_with_most_bikes).to eq("Station One, Station Two")
     end
 
     it 'finds no station with most bikes when there are no stations' do
-      expect(Station.station_with_most_bikes.count).to eq(0)
+      expect(Station.station_with_most_bikes).to eq("")
     end
   end
 
@@ -63,18 +63,18 @@ describe 'Station dashboard' do
       station_one = Station.create(name: "Station One", dock_count: 0, installation_date: "01/22/2016", city_id: 1)
       station_two = Station.create(name: "Station Two", dock_count: 20, installation_date: "02/20/2017", city_id: 1)
 
-      expect(Station.station_with_fewest_bikes.first).to eq(station_one)
+      expect(Station.station_with_fewest_bikes).to eq(station_one.name)
     end
 
     it 'finds multiple station with fewest bikes' do
       Station.create(name: "Station One", dock_count: 0, installation_date: "01/22/2016", city_id: 1)
       Station.create(name: "Station Two", dock_count: 0, installation_date: "02/20/2017", city_id: 1)
       
-      expect(Station.station_with_fewest_bikes.count).to eq(2)
+      expect(Station.station_with_fewest_bikes).to eq("Station One, Station Two")
     end
 
     it 'finds no station with fewest bikes when there are no stations' do
-      expect(Station.station_with_fewest_bikes.count).to eq(0)
+      expect(Station.station_with_fewest_bikes).to eq("")
     end
   end
 
@@ -96,38 +96,38 @@ describe 'Station dashboard' do
       station_one = Station.create(name: "Station One", dock_count: 0, installation_date: "01/22/2016", city_id: 1)
       station_two = Station.create(name: "Station Two", dock_count: 0, installation_date: "02/19/2016", city_id: 1)
 
-      expect(Station.newest_station).to eq(station_one)
+      expect(Station.newest_station).to eq(station_one.name)
     end
 
     it 'finds most recently installed station based on year' do
       station_one = Station.create(name: "Station One", dock_count: 0, installation_date: "01/01/2011", city_id: 1)
       station_two = Station.create(name: "Station Two", dock_count: 0, installation_date: "02/23/2016", city_id: 1)
 
-      expect(Station.newest_station).to eq(station_one)
+      expect(Station.newest_station).to eq(station_one.name)
     end
 
     it 'finds most recently installed station based on day' do
       station_one = Station.create(name: "Station One", dock_count: 0, installation_date: "02/22/2016", city_id: 1)
       station_two = Station.create(name: "Station Two", dock_count: 0, installation_date: "02/23/2016", city_id: 1)
 
-      expect(Station.newest_station).to eq(station_one)
+      expect(Station.newest_station).to eq(station_one.name)
     end
 
     it 'finds no station as most recently installed when there are no stations' do
-      expect(Station.newest_station).to be_nil
+      expect(Station.newest_station).to eq("")
     end
 
     it 'finds no station as newest when installation date is in improper format' do
       station = Station.create(name: "Station One", dock_count: 0, installation_date: "Not a date", city_id: 1)
 
-      expect(Station.newest_station).to eq(nil)
+      expect(Station.newest_station).to eq("")
     end
 
     it 'finds station with an valid date as newest station' do
       valid_date_station= Station.create(name: "Valid", dock_count: 0, installation_date: "02/22/2016", city_id: 1)
       invalid_date_station = Station.create(name: "Invalid", dock_count: 0, installation_date: "Not a date", city_id: 1)
 
-      expect(Station.newest_station).to eq(valid_date_station)
+      expect(Station.newest_station).to eq(valid_date_station.name)
     end
   end
 
@@ -136,38 +136,38 @@ describe 'Station dashboard' do
       station_one = Station.create(name: "Station One", dock_count: 0, installation_date: "01/22/2016", city_id: 1)
       station_two = Station.create(name: "Station Two", dock_count: 0, installation_date: "02/19/2016", city_id: 1)
 
-      expect(Station.oldest_station).to eq(station_two)
+      expect(Station.oldest_station).to eq(station_two.name)
     end
 
     it 'finds oldest station based on year' do
       station_one = Station.create(name: "Station One", dock_count: 0, installation_date: "01/01/2011", city_id: 1)
       station_two = Station.create(name: "Station Two", dock_count: 0, installation_date: "02/23/2016", city_id: 1)
 
-      expect(Station.oldest_station).to eq(station_two)
+      expect(Station.oldest_station).to eq(station_two.name)
     end
 
     it 'finds oldest station based on day' do
       station_one = Station.create(name: "Station One", dock_count: 0, installation_date: "02/22/2016", city_id: 1)
       station_two = Station.create(name: "Station Two", dock_count: 0, installation_date: "02/23/2016", city_id: 1)
 
-      expect(Station.oldest_station).to eq(station_two)
+      expect(Station.oldest_station).to eq(station_two.name)
     end
 
     it 'finds no station as oldest when there are no stations' do
-      expect(Station.oldest_station).to be_nil
+      expect(Station.oldest_station).to eq("")
     end
 
     it 'finds no station as oldest when installation date is in improper format' do
       station = Station.create(name: "Station One", dock_count: 0, installation_date: "Not a date", city_id: 1)
 
-      expect(Station.oldest_station).to eq(nil)
+      expect(Station.oldest_station).to eq("")
     end
 
     it 'finds station with a valid date as oldest station' do
       valid_date_station= Station.create(name: "Valid", dock_count: 0, installation_date: "02/22/2016", city_id: 1)
       invalid_date_station = Station.create(name: "Invalid", dock_count: 0, installation_date: "Not a date", city_id: 1)
 
-      expect(Station.oldest_station).to eq(valid_date_station)
+      expect(Station.oldest_station).to eq(valid_date_station.name)
     end
   end
 end

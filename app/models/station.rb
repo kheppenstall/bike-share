@@ -13,7 +13,8 @@ class Station < ActiveRecord::Base
   end
 
   def self.station_with_most_bikes
-    where(dock_count: max_bike_count)
+    stations = all.find_all{|station| station.dock_count == max_bike_count}
+    names(stations)
   end
 
   def self.max_bike_count
@@ -21,8 +22,22 @@ class Station < ActiveRecord::Base
     maximum(:dock_count)
   end
 
+  def self.put_in_list(name, names, list)
+    if name == names.last
+      list + name
+    else
+      name + ", " + list
+    end
+  end
+
+  def self.names(stations)
+    names = stations.map {|station| station.name}
+    names.reduce("") {|list, name| put_in_list(name, names, list)}
+  end
+
   def self.station_with_fewest_bikes
-    where(dock_count: min_bike_count)
+    stations = all.find_all{|station| station.dock_count == min_bike_count}
+    names(stations)
   end
 
   def self.min_bike_count
@@ -39,10 +54,12 @@ class Station < ActiveRecord::Base
   end
 
   def self.newest_station
-    stations_with_date.min_by {|station| station.installation_time}
+    station = stations_with_date.min_by {|station| station.installation_time}
+    station.name rescue ""
   end
 
   def self.oldest_station
-    stations_with_date.max_by {|station| station.installation_time}
+    station = stations_with_date.max_by {|station| station.installation_time}
+    station.name rescue ""
   end
 end

@@ -34,10 +34,17 @@ describe "when user visits /stations" do
     expect(current_path).to eq("/stations/#{dock_1.id}")
   end
 
-  it "text" do
+  it "and clicks to create a new station user visits new station page" do
     visit('/stations')
     click_link("Create a New Station")
 
     expect(current_path).to eq("/stations/new")
+  end
+
+   it "and clicks station dashboard user visits dashboard page" do
+    visit('/stations')
+    click_link("Dashboard")
+
+    expect(current_path).to eq("/stations-dashboard")
   end
 end
