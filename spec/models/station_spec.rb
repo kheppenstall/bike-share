@@ -60,9 +60,9 @@ describe "Station" do
 
   describe "associates" do
     it "with city" do
-      city = City.create(name: "Denver")
+      city = City.create(name: "denver")
       station = city.stations.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009")
-      
+
       expect(station.city_id).to eq(city.id)
     end
   end

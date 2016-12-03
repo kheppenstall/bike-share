@@ -1,7 +1,7 @@
 require './spec/spec_helper'
 
 describe "when user visits /stations" do
-  it "they see a message" do
+  it "user sees a message" do
     visit('/stations')
 
     expect(page).to have_content("Stations")
@@ -32,5 +32,12 @@ describe "when user visits /stations" do
     click_link("#{dock_1.name}, #{dock_1.city.name}")
 
     expect(current_path).to eq("/stations/#{dock_1.id}")
+  end
+
+  it "text" do
+    visit('/stations')
+    click_link("Create a New Station")
+
+    expect(current_path).to eq("/stations/new")
   end
 end
