@@ -8,7 +8,7 @@ class Station < ActiveRecord::Base
   validates :city_id, presence: true
 
   def self.average_bikes_per_station
-    return 0 if count == 0
+    return 0 if count.zero?
     average("dock_count").round(1)
   end
 
@@ -24,9 +24,9 @@ class Station < ActiveRecord::Base
 
   def self.put_in_list(name, names, list)
     if name == names.last
-      list + name
+      "#{list}#{name}"
     else
-      name + ", " + list
+      "#{name}, #{list}"
     end
   end
 
@@ -46,20 +46,20 @@ class Station < ActiveRecord::Base
   end
 
   def installation_time
-    time = Time.strptime(installation_date,"%m/%d/%Y") rescue nil
+    Time.strptime(installation_date,"%m/%d/%Y") rescue nil
   end
 
-  def self.stations_with_date
+  def self.stations_with_valid_date
     all.find_all {|station| station.installation_time}
   end
 
   def self.newest_station
-    station = stations_with_date.min_by {|station| station.installation_time}
+    station = stations_with_valid_date.max_by {|station| station.installation_time}
     station.name rescue ""
   end
 
   def self.oldest_station
-    station = stations_with_date.max_by {|station| station.installation_time}
+    station = stations_with_valid_date.min_by {|station| station.installation_time}
     station.name rescue ""
   end
 end
