@@ -1,5 +1,3 @@
-require 'time'
-
 class Station < ActiveRecord::Base
   belongs_to :city
   has_many  :trips
@@ -43,25 +41,17 @@ class Station < ActiveRecord::Base
   end
 
   def self.min_bike_count
-    return 0 if Station.count == 0
+    return 0 if count == 0
     minimum(:dock_count)
   end
 
-  def installation_time
-    Time.strptime(installation_date,"%m/%d/%Y") rescue nil
-  end
-
-  def self.stations_with_valid_date
-    all.find_all {|station| station.installation_time}
-  end
-
   def self.newest_station
-    station = stations_with_valid_date.max_by {|station| station.installation_time}
+    station = all.max_by {|station| station.installation_date}
     station.name rescue ""
   end
 
   def self.oldest_station
-    station = stations_with_valid_date.min_by {|station| station.installation_time}
+    station = all.min_by {|station| station.installation_date}
     station.name rescue ""
   end
 end

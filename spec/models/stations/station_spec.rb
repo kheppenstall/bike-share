@@ -4,7 +4,7 @@ describe "Station" do
   describe "attributes" do
 
     before :each do
-      @station = Station.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009", city_id: 2)
+      @station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 2)
     end
 
     it "has an id" do
@@ -20,7 +20,7 @@ describe "Station" do
     end
 
     it "has an installation date" do
-      expect(@station.installation_date).to eq("07/21/2009")
+      expect(@station.installation_date.inspect).to eq("Thu, 01 Jan 2015")
     end
 
     it "has a city id" do
@@ -30,13 +30,13 @@ describe "Station" do
 
   describe "validates" do
     it "presence of name" do
-      invalid_station = Station.create(dock_count: 20, installation_date: "07/21/2009", city_id: 2)
+      invalid_station = Station.create(dock_count: 20, installation_date: "01/01/2015", city_id: 2)
 
       expect(invalid_station).to be_invalid
     end
 
     it "presence of dock count" do
-      invalid_station = Station.create(name: "Dock", installation_date: "07/21/2009", city_id: 2)
+      invalid_station = Station.create(name: "Dock", installation_date: "01/01/2015", city_id: 2)
 
       expect(invalid_station).to be_invalid
     end
@@ -48,14 +48,14 @@ describe "Station" do
     end
 
     it "presence of city id" do
-      invalid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009")
+      invalid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015")
 
       expect(invalid_station).to be_invalid
     end
 
     it "uniqueness of name" do
-      valid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009", city_id: 2)
-      invalid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009", city_id: 2)
+      valid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 2)
+      invalid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 2)
 
       expect(valid_station).to be_valid
       expect(invalid_station).to be_invalid
@@ -65,7 +65,7 @@ describe "Station" do
   describe "associates" do
     it "with city" do
       city = City.create(name: "denver")
-      station = city.stations.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009")
+      station = city.stations.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015")
 
       expect(station.city_id).to eq(city.id)
     end
