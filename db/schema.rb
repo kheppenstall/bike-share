@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161202164254) do
+ActiveRecord::Schema.define(version: 20161204031011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,19 @@ ActiveRecord::Schema.define(version: 20161202164254) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "conditions", force: :cascade do |t|
+    t.time     "date"
+    t.integer  "max_temperature"
+    t.integer  "mean_temperature"
+    t.integer  "min_temperature"
+    t.integer  "mean_humidity"
+    t.integer  "mean_visibility"
+    t.integer  "mean_wind_speed"
+    t.integer  "precipitation"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "stations", force: :cascade do |t|
     t.string   "name"
     t.integer  "dock_count"
@@ -28,6 +41,20 @@ ActiveRecord::Schema.define(version: 20161202164254) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "city_id"
+  end
+
+  create_table "trips", force: :cascade do |t|
+    t.integer  "duration"
+    t.time     "start_date"
+    t.time     "end_date"
+    t.integer  "end_station_id"
+    t.integer  "bike_id"
+    t.string   "subscription_type"
+    t.integer  "zip_code"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "station_id"
+    t.integer  "condition_id"
   end
 
 end
