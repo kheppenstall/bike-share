@@ -1,6 +1,8 @@
+require "station_controller_routes"
 require 'pry'
 
 class BikeShareApp < Sinatra::Base
+  include StationControllerRoutes
 
   get '/stations' do
     @stations = Station.all
