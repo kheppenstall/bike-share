@@ -3,7 +3,7 @@ require './spec/spec_helper'
 describe "when user visits /stations/:id" do
   before :each do
     @city = City.create(name: "Denver")
-    @station = @city.stations.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009")
+    @station = @city.stations.create(name: "Dock", dock_count: 20, installation_date: "01/01/2009")
   end
 
   it "user sees station name" do
@@ -17,7 +17,7 @@ describe "when user visits /stations/:id" do
 
     expect(page).to have_content("#{@station.city.name}")
     expect(page).to have_content("#{@station.dock_count}")
-    expect(page).to have_content("#{@station.installation_date}")
+    expect(page).to have_content("#{@station.installation_date.inspect}")
   end
 
   it "user returns to index" do

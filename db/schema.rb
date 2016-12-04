@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20161204033115) do
   end
 
   create_table "conditions", force: :cascade do |t|
-    t.time     "date"
+    t.date     "date"
     t.integer  "max_temperature"
     t.integer  "mean_temperature"
     t.integer  "min_temperature"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20161204033115) do
   create_table "stations", force: :cascade do |t|
     t.string   "name"
     t.integer  "dock_count"
-    t.string   "installation_date"
+    t.date     "installation_date"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "city_id"
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 20161204033115) do
 
   create_table "trips", force: :cascade do |t|
     t.integer  "duration"
-    t.time     "start_date"
-    t.time     "end_date"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.integer  "end_station_id"
     t.integer  "bike_id"
     t.integer  "zip_code"
