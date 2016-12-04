@@ -1,3 +1,4 @@
+require 'time'
 require './db/parser'
 require './app/models/station'
 require './app/models/city'
@@ -9,7 +10,7 @@ stations = parse('./db/csv/station.csv').map do |row|
 
   Station.create(name:              row[:name],
                  dock_count:        row[:dock_count],
-                 installation_date: row[:installation_date],
+                 installation_date: Date.strptime(row[:installation_date], "%m/%d/%Y"),
                  city_id:           city.id
                  )
 end
