@@ -56,5 +56,13 @@ describe "when user visits /stations-dashboard" do
 
       expect(page).to have_content("Oldest station: #{Station.oldest_station}")
     end
+
+    it "and user clicks stations button" do
+      visit('/stations-dashboard')
+
+      click_on("View All Stations")
+
+      expect(current_path).to eq('/stations')
+    end
   end
 end
