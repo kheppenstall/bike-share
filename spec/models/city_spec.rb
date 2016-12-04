@@ -38,14 +38,14 @@ describe "City" do
     end
 
     it "with one station" do
-      station = @city.stations.create(name: "Dock", dock_count: 20, installation_date: "07/21/2009")
+      station = @city.stations.create(name: "Dock", dock_count: 20, installation_date: "01/01/2009")
 
       expect(@city.id).to eq(station.id)
     end
 
     it "with multiple stations" do
-      station_one = @city.stations.create(name: "Dock_One", dock_count: 20, installation_date: "07/21/2009")
-      station_two = @city.stations.create(name: "Dock_Two", dock_count: 20, installation_date: "07/21/2009")
+      station_one = @city.stations.create(name: "Dock_One", dock_count: 20, installation_date: "01/01/2009")
+      station_two = @city.stations.create(name: "Dock_Two", dock_count: 20, installation_date: "01/01/2009")
 
       expect(@city.id).to eq(station_one.city_id)
       expect(@city.id).to eq(station_two.city_id)

@@ -1,6 +1,3 @@
-require 'date'
-require 'time'
-
 class Station < ActiveRecord::Base
   belongs_to :city
   has_many  :trips
@@ -48,21 +45,13 @@ class Station < ActiveRecord::Base
     minimum(:dock_count)
   end
 
-  def valid_date?
-    Date.strptime(installation_date, "%Y-%m-%d") rescue nil
-  end
-
-  def self.stations_with_valid_date
-    all.find_all {|station| station.valid_date?}
-  end
-
   def self.newest_station
-    station = stations_with_valid_date.max_by {|station| station.installation_date}
+    station = all.max_by {|station| station.installation_date}
     station.name rescue ""
   end
 
   def self.oldest_station
-    station = stations_with_valid_date.min_by {|station| station.installation_date}
+    station = all.min_by {|station| station.installation_date}
     station.name rescue ""
   end
 end

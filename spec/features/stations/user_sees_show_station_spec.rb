@@ -17,7 +17,7 @@ describe "when user visits /stations/:id" do
 
     expect(page).to have_content("#{@station.city.name}")
     expect(page).to have_content("#{@station.dock_count}")
-    expect(page).to have_content("#{@station.installation_date}")
+    expect(page).to have_content("#{@station.installation_date.inspect}")
   end
 
   it "user returns to index" do

@@ -1,6 +1,4 @@
 require './spec/spec_helper'
-require 'date'
-require 'pry'
 
 describe 'Station dashboard' do
   describe '.count' do
@@ -19,7 +17,7 @@ describe 'Station dashboard' do
   describe '.average_bikes_per_station' do
     it 'calculates averages bikes per station' do
       Station.create(name: "Station One", dock_count: 0, installation_date: "01/01/2016", city_id: 1)
-      Station.create(name: "Station Two", dock_count: 20, installation_date: "01/01/2017", city_id: 1)
+      Station.create(name: "Station Two", dock_count: 20, installation_date: "01/01/2016", city_id: 1)
 
       expect(Station.average_bikes_per_station).to eq(10)
     end

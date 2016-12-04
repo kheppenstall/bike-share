@@ -4,7 +4,7 @@ describe "user visits /stations/:id/edit" do
 
   before :each do
     @city = City.create(name: "Denver")
-    @station = @city.stations.create(name: "Original", dock_count: 0, installation_date: "01/01/2001")
+    @station = @city.stations.create(name: "Original", dock_count: 0, installation_date: "01/01/2016")
   end
 
   it "and sees form with attributes filled in" do
@@ -23,7 +23,7 @@ describe "user visits /stations/:id/edit" do
     click_on "Submit"
     expect(page).to have_content(@station.name)
     expect(page).to have_content(@station.dock_count)
-    expect(page).to have_content(@station.installation_date)
+    expect(page).to have_content(@station.installation_date.inspect)
     expect(page).to have_content(@station.city.name)
     expect(current_path).to eq("/stations/#{@station.id}")
   end
@@ -45,7 +45,7 @@ describe "user visits /stations/:id/edit" do
     expect(page).to have_content("Dock")
     expect(page).to have_content("San Fransisco")
     expect(page).to have_content("20")
-    expect(page).to have_content("01/01/2009")
+    expect(page).to have_content("Thu, 01 Jan 2009")
     expect(station.city_id).to eq(city.id)
   end
 end
