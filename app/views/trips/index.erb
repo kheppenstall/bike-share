@@ -1,7 +1,16 @@
-<h1>Trips</h1>
+<div class="container">
+  <h2>Trips</h2>
+    <% @trips.each do |trip| %>
+    <div class="list-group">
+      <a href="/trips/<%= trip.id %>" class="list-group-item">
+        <%= trip.start_information %><br>
+      <%= trip.end_information %></br></a>
+    <% end %>
+  </div>
+</div>
 
-<ul>
-  <% @trips.each do |trip| %>
-    <h2><%= trip.start_date %><%= trip.end_date%><%= trip.station.name%><%= Trip.find_end_station(trip.end_station_id).name %></h2>
-  <% end %>
+<ul class="pagination pagination-lg">
+  <% (1..@pages).each do |num| %>
+      <li><a href="/trips/page/<%= num %>"><%= num %></a></li>
+    <% end %>
 </ul>

@@ -100,8 +100,7 @@ class BikeShareApp < Sinatra::Base
   get '/trips/page/:num' do |num|
     n          = num.to_i
     range      = (((n - 1) * 30)..(n * 30 - 1))
-    @previous  = (n != 1)
-    @next      = (range.include?(Trip.count -1))
+    @pages     = (Trip.count / 30.to_f).ceil
     @trips     = Trip.all[range]
     erb :"trips/index"
   end

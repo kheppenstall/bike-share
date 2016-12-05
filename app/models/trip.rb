@@ -1,3 +1,5 @@
+require 'time'
+
 class Trip < ActiveRecord::Base
   belongs_to  :condition
   belongs_to  :station
@@ -9,8 +11,16 @@ class Trip < ActiveRecord::Base
   validates   :station_id,           presence: true
   validates   :subscription_type_id, presence: true
 
-  def self.find_end_station(id)
-    Station.find(id)
+  def end_station
+    Station.find(end_station_id)
+  end
+
+  def start_information
+    "Start: #{start_date}, #{station.name rescue "Station Not Found"}"
+  end
+
+  def end_information
+    "End: #{end_date}, #{end_station.name rescue "Station Not Found"}"
   end
 
 end
