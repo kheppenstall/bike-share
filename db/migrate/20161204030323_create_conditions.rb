@@ -8,7 +8,7 @@ class CreateConditions < ActiveRecord::Migration[5.0]
       t.integer :mean_humidity
       t.integer :mean_visibility
       t.integer :mean_wind_speed
-      t.integer :precipitation
+      t.float   :precipitation
 
       t.timestamps null: false
     end
