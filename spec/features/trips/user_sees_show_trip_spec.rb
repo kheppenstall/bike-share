@@ -5,9 +5,11 @@ describe "when user visits /trips/:id" do
     @start_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
     @final_station = Station.create(name: "Dock1", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
     @subscription  = SubscriptionType.create(name: "Customer")
+    @condition     = Condition.create(date: "02/01/1990")
     @trip          = @subscription.trips.create(duration: 300, start_date: "01/01/2016",
                         end_date: "02/01/2016", station_id: @start_station.id, end_station_id: @final_station.id,
-                        bike_id: 14, zip_code: 80918, condition_id: 2)
+                        bike_id: 14, zip_code: 80918, condition_id: @condition.id)
+
   end
 
   it "user sees trip date" do
