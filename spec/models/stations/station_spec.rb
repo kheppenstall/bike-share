@@ -10,7 +10,7 @@ describe "Station" do
     it "has an id" do
       expect(@station.id).to eq(1)
     end
-    
+
     it "has name" do
       expect(@station.name).to eq("Dock")
     end
@@ -54,7 +54,7 @@ describe "Station" do
     end
 
     it "uniqueness of name" do
-      valid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 2)
+      valid_station   = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 2)
       invalid_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 2)
 
       expect(valid_station).to be_valid
@@ -81,6 +81,7 @@ describe "Station" do
       station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 2)
       condition = Condition.create(date:                 "01/01/2016",
                                    max_temperature:      80,
+                                   mean_temperature:     75,
                                    min_temperature:      70,
                                    mean_humidity:        93,
                                    mean_visibility:      10,
