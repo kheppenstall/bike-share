@@ -32,9 +32,8 @@ describe "when user visits /trips" do
 
     visit('/trips/page/1')
 
-    (30..45).each do |n|
-      expect(page).to have_content("19#{n}")
-    end
+    expect(page).to have_content("1930")
+    expect(page).to have_content("1945")
   end
 
   it "and sees 30 trip links" do
@@ -47,21 +46,18 @@ describe "when user visits /trips" do
 
     visit('/trips/page/1')
 
-    (30..59).each do |n|
-      expect(page).to have_content("19#{n}")
-    end
-    (60..65).each do |n|
-      expect(page).to_not have_content("19#{n}")
-    end
+    expect(page).to have_content("1930")
+    expect(page).to have_content("1959")
+    expect(page).to_not have_content("1960")
+    expect(page).to_not have_content("1965")
+    expect(current_path).to eq('/trips/page/1')
 
     click_on('2')
 
-    (30..59).each do |n|
-      expect(page).to_not have_content("19#{n}")
-    end
-    (60..65).each do |n|
-      expect(page).to have_content("19#{n}")
-    end
+    expect(page).to_not have_content("1930")
+    expect(page).to_not have_content("1959")
+    expect(page).to have_content("1960")
+    expect(page).to have_content("1965")
     expect(current_path).to eq('/trips/page/2')
   end
 
@@ -76,9 +72,8 @@ describe "when user visits /trips" do
     visit('/trips/page/1')
     click_on('3')
 
-    (90..95).each do |n|
-      expect(page).to have_content("19#{n}")
-    end
+    expect(page).to have_content("1995")
+    expect(page).to have_content("1991")
     expect(current_path).to eq('/trips/page/3')
   end
 

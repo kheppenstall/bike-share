@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>Trip: <%= @trip.start_date %></h2>
+</div>
+
+<div class="container">
+  <h4><%= @trip.start_information %></h4>
+  <h4><%= @trip.end_information %></h4>
+</div>
+
+<div class="container">
+  <ul class="list-group">
+    <li class="list-group-item">Duration of Trip: <%= @trip.duration %> seconds</li>
+    <li class="list-group-item">Zip Code: <%= @trip.zip_code %></li>
+    <li class="list-group-item">Bike ID: <%= @trip.bike_id %></li>
+    <li class="list-group-item">Subscription Type: <%= SubscriptionType.find(@trip.subscription_type_id).name %></li>
+  </ul>
+</div>
+
+<a class="btn btn-primary" href="/conditions/<%= @trip.condition_id %>">
+  <i class="glyphicon glyphicon-globe"></i>
+    Weather Conditions</a><br>
+
+<a class="btn btn-warning" href="/trips/<%= @trip.id %>/edit">
+  <i class="glyphicon glyphicon-pencil"></i>
+    Edit</a><br>
+
+<form action="/trips/<%= @trip.id %>" class="delete-form" method="POST">
+  <input name="_method" type="hidden" value="DELETE"/>
+  <input class="btn btn-danger" type="submit" value="Delete"/>
+</form>

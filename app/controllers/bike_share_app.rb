@@ -111,6 +111,15 @@ class BikeShareApp < Sinatra::Base
 
 
 
+
+
+
+
+
+
+
+
+
 ## Trip CRUD ###
 
   get '/trips' do
@@ -125,8 +134,20 @@ class BikeShareApp < Sinatra::Base
     erb :"trips/index"
   end
 
+  get '/trips/new' do
+    @stations = Station.all
+    erb :"trips/new"
+  end
 
+  get '/trips/:id' do |id|
+    @trip = Trip.find(id)
+    erb :"trips/show"
+  end
 
+  delete '/trips/:id' do |id|
+    Trip.delete(id)
+    redirect ('/trips')
+  end
 
 
 end
