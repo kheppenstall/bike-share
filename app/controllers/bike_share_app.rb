@@ -44,60 +44,25 @@ class BikeShareApp < Sinatra::Base
     Station.delete(id)
     redirect '/stations'
   end
+###################### New code for conditions portion of controller starts here #######################
+  get '/conditions' do
+    @conditions = Condition.all
+    erb :"conditions/index"
+  end
 
+  get '/conditions/new' do
+    erb :"conditions/new"
+  end
 
+  get '/conditions/:id' do |id|
+    @condition = Condition.find(id)
+    erb :"conditions/show"
+  end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Trip CRUD ###
-
-  
-
-
-
-
+  post '/conditions' do
+    Condition.create(params["condition"])
+    redirect "/conditions"
+  end
 
 
 end
