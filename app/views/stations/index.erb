@@ -1,14 +1,24 @@
-<h1>Stations</h1>
+<div class = "container">
+    <h2>Stations</h2>
+
+<div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-secondary">Left</button>
+  <button type="button" class="btn btn-secondary">Middle</button>
+  <button type="button" class="btn btn-secondary">Right</button>
+</div>
+
+<div class="btn-group" role="group" aria-label="Basic example">
 <a class="btn btn-primary" href="/stations/new">
     Create a New Station</a><br>
-
 <a class="btn btn-primary" href="/stations-dashboard">
     Dashboard</a><br>
+</div>
 
 <div>
-  <ul>
-  <% @stations.each do |station| %>
-      <h2><a href="/stations/<%= station.id %>"><%= station.name %>, <%= station.city.name %></a></h2>
-  <% end %>
-</ul>
+    <div class="list-group">
+        <% @stations.each do |station| %>
+            <a href="/stations/<%= station.id %>" class="list-group-item">
+            <%= station.name %>, <%= station.city.name %></a>
+       <% end %>
+    </div>
 </div>
