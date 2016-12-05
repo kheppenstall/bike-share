@@ -59,10 +59,71 @@ class BikeShareApp < Sinatra::Base
     erb :"conditions/show"
   end
 
+
   post '/conditions' do
     Condition.create(params["condition"])
     redirect "/conditions"
   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Trip CRUD ###
+
+  get '/trips' do
+    redirect '/trips/page/1'
+  end
+
+  get '/trips/page/:num' do |num|
+    n          = num.to_i
+    range      = (((n - 1) * 30)..(n * 30 - 1))
+    @pages     = (Trip.count / 30.to_f).ceil
+    @trips     = Trip.all[range]
+    erb :"trips/index"
+  end
+
+
+
 
 
 end

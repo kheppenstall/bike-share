@@ -42,6 +42,40 @@ describe "Trip" do
 
   end
 
+  describe "can find" do
+    it "end station" do
+      start_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
+      end_station   = Station.create(name: "Dock1", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
+      trip          = start_station.trips.create(duration: 300, start_date: "01/01/2016",
+                          end_date: "02/01/2016", end_station_id: end_station.id,
+                          bike_id: 14, zip_code: 80918, station_id: 3,
+                          condition_id: 2, subscription_type_id: 1)
+
+      expect(trip.end_station).to eq(end_station)
+    end
+
+    it "starting information" do
+      start_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
+      trip          = start_station.trips.create(duration: 300, start_date: "01/01/2016",
+                          end_date: "02/01/2016", end_station_id: 2,
+                          bike_id: 14, zip_code: 80918, station_id: 3,
+                          condition_id: 2, subscription_type_id: 1)
+
+      expect(trip.start_information).to eq("Start: #{trip.start_date}, #{start_station.name}")
+    end
+
+    it "ending information" do
+      start_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
+      final_station = Station.create(name: "Dock1", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
+      trip          = start_station.trips.create(duration: 300, start_date: "01/01/2016",
+                          end_date: "02/01/2016", end_station_id: final_station.id,
+                          bike_id: 14, zip_code: 80918, station_id: 3,
+                          condition_id: 2, subscription_type_id: 1)
+
+      expect(trip.end_information).to eq("End: #{trip.end_date}, #{trip.end_station.name}")
+    end
+  end
+
   describe "validates" do
 
     it "presence of duration" do
@@ -74,10 +108,12 @@ describe "Trip" do
       expect(invalid_trip).to be_invalid
     end
 
-    it "presence of condition" do
-      invalid_trip = Trip.create(duration: 300, start_date: "01/01/2016", end_date: "02/01/2016", end_station_id: 5, bike_id: 14, zip_code: 80918, station_id: 3, subscription_type_id: 1)
+    it "does not require the presence of a condition" do
+      valid_trip   = Trip.create(duration: 300, start_date: "01/01/2016", end_date: "02/01/2016", end_station_id: 5, bike_id: 14, zip_code: 80918, station_id: 3, subscription_type_id: 1)
+      valid_trip_2 = Trip.create(duration: 300, start_date: "01/01/2016", end_date: "02/01/2016", end_station_id: 5, bike_id: 14, zip_code: 80918, station_id: 3, condition_id: 2, subscription_type_id: 1)
 
-      expect(invalid_trip).to be_invalid
+      expect(valid_trip).to be_valid
+      expect(valid_trip_2).to be_valid
     end
 
     it "presence of subscription type id" do
@@ -96,8 +132,17 @@ describe "Trip" do
     end
 
     it "with stations" do
-      condition = Condition.create(date: "02/01/1990", max_temperature: 56, mean_temperature: 45, min_temperature: 31, mean_humidity: 45, mean_visibility: 10, mean_wind_speed: 45, precipitation: 10)
-      trip      = condition.trips.create(duration: 300, start_date: "01/01/2016", end_date: "02/01/2016", end_station_id: 5, bike_id: 14, zip_code: 80918, station_id: 3, subscription_type_id: 1)
+      station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
+      trip      = station.trips.create(duration: 300, start_date: "01/01/2016", end_date: "02/01/2016", end_station_id: 5, bike_id: 14, zip_code: 80918, subscription_type_id: 1)
+
+      expect(trip.station_id).to eq(station.id)
+    end
+
+    it "with subscription type" do
+      subscription = SubscriptionType.create(name: "subscriber")
+      trip         = subscription.trips.create(duration: 300, start_date: "01/01/2016", end_date: "02/01/2016", end_station_id: 5, bike_id: 14, zip_code: 80918, station_id: 3, condition_id: 2)
+
+      expect(trip.subscription_type_id).to eq(subscription.id)
     end
   end
 end
