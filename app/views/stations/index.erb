@@ -1,14 +1,26 @@
-<h1>Stations</h1>
-<a class="btn btn-primary" href="/stations/new">
-    Create a New Station</a><br>
+<div class = "container">
+    <h2>Stations</h2>
+</div>
 
-<a class="btn btn-primary" href="/stations-dashboard">
-    Dashboard</a><br>
+<div class = "container">
+    <div class="btn-group blocks">
+        <a type="button" class="btn btn-success"href='/stations/new'>Create a New Station</a>
+        <a type="button" class="btn btn-info" href='/stations-dashboard'>Dashboard</a>
+        <br></br>
+    </div>
+</div>
 
-<div>
-  <ul>
-  <% @stations.each do |station| %>
-      <h2><a href="/stations/<%= station.id %>"><%= station.name %>, <%= station.city.name %></a></h2>
-  <% end %>
-</ul>
+<div class = "container">
+    <div class="list-group row">
+        <% @stations.each do |station| %>
+            <a href="/stations/<%= station.id %>" class="list-group-item col-xs-4">
+            <%= station.name %>, <%= station.city.name %></a>
+            <li class="list-group-item col-xs-6">
+                <form action="/stations/<%= station.id %>" class="delete-form" method="POST">
+                    <input name="_method" type="hidden" value="DELETE"/>
+                    <input class="btn btn-danger" type="submit" value="Delete"/>
+                </form>
+            </li>
+       <% end %>
+    </div>
 </div>
