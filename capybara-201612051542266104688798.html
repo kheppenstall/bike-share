@@ -9,9 +9,39 @@
   <title>Bike Share</title>
 </head>
 <body>
-  <%#<%= erb :navbar %>
+  
   <div class="container">
-    <%= yield %>
+    <div class="container">
+  <h2>Trip: 2016-02-01 08:00:00 UTC</h2>
+</div>
+
+<div class="container">
+  <h4>Start: 2016-02-01 08:00:00 UTC, Station</h4>
+  <h4>End: 2016-02-01 08:01:00 UTC, Station</h4>
+</div>
+
+<div class="container">
+  <ul class="list-group">
+    <li class="list-group-item">Duration of Trip: 60 seconds</li>
+    <li class="list-group-item">Zip Code: 80918</li>
+    <li class="list-group-item">Bike ID: 14</li>
+    <li class="list-group-item">Subscription Type: Customer</li>
+  </ul>
+</div>
+
+<a class="btn btn-primary" href="/conditions/1">
+  <i class="glyphicon glyphicon-globe"></i>
+    Weather Conditions</a><br>
+
+<a class="btn btn-warning" href="/trips/1/edit">
+  <i class="glyphicon glyphicon-pencil"></i>
+    Edit</a><br>
+
+<form action="/trips/1" class="delete-form" method="POST">
+  <input name="_method" type="hidden" value="DELETE"/>
+  <input class="btn btn-danger" type="submit" value="Delete"/>
+</form>
+
   </div>
 </body>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
