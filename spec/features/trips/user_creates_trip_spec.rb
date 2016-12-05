@@ -27,18 +27,13 @@ describe "user visits /trips/new" do
 
     fill_in "trip[bike_id]", with: 14
     fill_in "trip[zip_code]", with: 80918
-    # fill_in "trip[start_station_name]", with: "Station"
     fill_in "trip[start_date]", with: "01/02/2016 01:00:00"
-    # fill_in "trip[end_station_name]", with: "Station"
     fill_in "trip[end_date]", with: "01/02/2016 01:01:00"
 
     click_on("Submit")
 
-    save_and_open_page
     expect(current_path).to eq("/trips")
     expect(page).to have_content("Station")
-    # expect(page).to have_content(14)
-    # expect(page).to have_content(80918)
     expect(page).to have_content("01/02/2016")
     expect(page).to have_content("01/02/2016")
   end
