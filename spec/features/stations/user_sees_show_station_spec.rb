@@ -35,4 +35,12 @@ describe "when user visits /stations/:id" do
 
     expect(current_path).to eq("/stations/#{@station.id}/edit")
   end
+
+  it "user deletes a station" do
+    visit("/stations/#{@station.id}")
+
+    click_on("Delete")
+
+    expect(current_path).to eq('/stations')
+  end
 end

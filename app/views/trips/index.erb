@@ -1,7 +1,7 @@
 <div class="container">
   <h2>Trips</h2>
+  <div class="list-group">
     <% @trips.each do |trip| %>
-    <div class="list-group">
       <a href="/trips/<%= trip.id %>" class="list-group-item">
         <%= trip.start_information %><br>
       <%= trip.end_information %></br></a>
