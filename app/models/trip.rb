@@ -8,4 +8,9 @@ class Trip < ActiveRecord::Base
   validates   :zip_code,             presence: true
   validates   :station_id,           presence: true
   validates   :subscription_type_id, presence: true
+
+  def self.find_end_station(id)
+    Station.find(id)
+  end
+
 end

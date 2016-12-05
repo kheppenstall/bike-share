@@ -1,0 +1,7 @@
+<h1>Trips</h1>
+
+<ul>
+  <% @trips.each do |trip| %>
+    <h2><%= trip.start_date %><%= trip.end_date%><%= trip.station.name%><%= Trip.find_end_station(trip.end_station_id).name %></h2>
+  <% end %>
+</ul>
