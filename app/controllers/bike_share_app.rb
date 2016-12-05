@@ -65,7 +65,10 @@ class BikeShareApp < Sinatra::Base
     redirect "/conditions"
   end
 
-
+  get '/stations/:id/edit' do |id|
+    @condition = Condition.find(id)
+    erb :"conditions/edit"
+  end
 
 
 
