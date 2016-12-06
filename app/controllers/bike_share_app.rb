@@ -1,5 +1,12 @@
-require 'pry'
+require_relative 'pagination'
+
 class BikeShareApp < Sinatra::Base
+
+  include Pagination
+
+  get '/' do
+    redirect '/stations'
+  end
 
   get '/stations' do
     @stations = Station.all
@@ -166,6 +173,7 @@ class BikeShareApp < Sinatra::Base
       page_num - 1
     end
   end
+
 
   get '/trips' do
     redirect '/trips/page/1'
