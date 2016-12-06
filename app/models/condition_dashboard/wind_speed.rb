@@ -1,0 +1,3 @@
+module WindSpeed
+
+end

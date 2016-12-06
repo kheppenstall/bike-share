@@ -1,0 +1,3 @@
+module Precipitation
+
+end
