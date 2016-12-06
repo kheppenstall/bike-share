@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="/application.css">
+  <title>Bike Share</title>
+</head>
+<body>
+  
+  <div class="container">
+    <h1>Thu, 01 Jan 2015</h1>
+
+<div>
+  <ul>
+    <li>Max Temperature: 20</li>
+    <li>Mean Temperature: 22</li>
+    <li>Mean Temperature: 10</li>
+    <li>Mean Humidity: 37</li>
+    <li>Mean Visibility: 2</li>
+    <li>Mean Mean Wind Speed: 22</li>
+    <li>Precipitation: 1.2</li>
+
+  </ul>
+</div>
+
+<a class="btn btn-primary" href="/conditions">
+  <i class="glyphicon glyphicon-circle-arrow-left"></i>
+    Return</a><br>
+
+<a class="btn btn-warning" href="/conditions/1/edit">
+  <i class="glyphicon glyphicon-pencil"></i>
+    Edit</a><br>
+
+<form action="/conditions/1" class="delete-form" method="POST">
+  <input name="_method" type="hidden" value="DELETE"/>
+  <input class="btn btn-danger" type="submit" value="Delete"/>
+</form>
+
+  </div>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
