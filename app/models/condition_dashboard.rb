@@ -1,20 +1,35 @@
-require_relative 'names'
+require './app/models/condition_dashboard/precipitation'
+require './app/models/condition_dashboard/visibility'
+require './app/models/condition_dashboard/wind_speed'
+require './app/models/condition_dashboard/temperature'
 
 module ConditionDashboard
 
-  def average_number_of_rides(temp_floor, date)
-    conditions = where(date: date)
+  include Precipitation 
+  include Visibility
+  include WindSpeed
+  include Temperature
+  
+  def trips_from_conditions(conditions)
+    condition_ids = conditions.map {|condition| condition.id}
+    Trip.where(condition_ids.include?(:condition_id))
+  end
+  
+  def average_rides(conditions)
     return 0 if conditions.count.zero?
-    (conditions.trips.count / conditions.count).round(1)
+    trips = trips_from_conditions(conditions)
+    (trips.count / conditions.count.to_f).round(1)
+  end
+
+  def highest_number_of_rides(conditions)
+    return 0 if conditions.count.zero?
+    max_condition = conditions.max_by {|condition| condition.trips.count}
+    max_condition.trips.count
+  end
+
+  def lowest_number_of_rides(conditions)
+    return 0 if conditions.count.zero?
+    min_condition = conditions.min_by {|condition| condition.trips.count}
+    min_condition.trips.count
   end
 end
-
-
-# Breakout of average number of rides, highest number of rides, 
-# and lowest number of rides on days with a high temperature 
-# in 10 degree chunks (e.g. average number of rides on days with 
-# high temps between fifty and sixty degrees)
-
-# Breakout of average number of rides, highest number of rides, and lowest number of rides on days with precipitation in half-inch increments.
-# Breakout of average number of rides, highest number of rides, and lowest number of rides on days with mean wind speeds in four mile increments.
-# Breakout of average number of rides, highest number of rides, and lowest number of rides on days with mean visibility in miles in four mile increments.
