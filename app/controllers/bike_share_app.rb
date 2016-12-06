@@ -60,8 +60,10 @@ class BikeShareApp < Sinatra::Base
   end
 
   post '/conditions' do
-    Condition.create(params["condition"])
-    redirect "/conditions"
+    condition = Condition.create(params["condition"])
+    # redirect "/conditions"
+    redirect "/conditions/#{condition.id}"
+
   end
 
   get '/conditions/:id/edit' do |id|
