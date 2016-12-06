@@ -25,25 +25,21 @@ describe "when user visits /conditions" do
     expect(page).to have_content(condition_2.date)
   end
 
-  it "and clicks station user visits station page" do
-    condition_1 = Condition.create(date: "Thu, 01 Jan 2015")
-    visit('/conditions')
-    click_link("#{condition_1.name}, #{condition_1.city.name}")
+  it "and clicks condition user visits condition page" do
+    condition = Condition.create(date: "Thu, 01 Jan 2015")
 
-    expect(current_path).to eq("/conditions/#{condition_1.id}")
+    visit('/conditions')
+
+    click_on "#{condition.date}"
+
+    expect(current_path).to eq("/conditions/#{condition.id}")
   end
-  #
-  # it "and clicks to create a new station user visits new station page" do
-  #   visit('/stations')
-  #   click_link("Create a New Station")
-  #
-  #   expect(current_path).to eq("/stations/new")
-  # end
-  #
-  #  it "and clicks station dashboard user visits dashboard page" do
-  #   visit('/stations')
-  #   click_link("Dashboard")
-  #
-  #   expect(current_path).to eq("/stations-dashboard")
-  # end
+
+  it "and clicks to create a new condition user visits new condition page" do
+    visit('/conditions')
+
+    click_link("Create a New Condition")
+
+    expect(current_path).to eq("/conditions/new")
+  end
 end
