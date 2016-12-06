@@ -24,9 +24,20 @@
     <input type="date" name="station[installation_date]" class="form control" value="<%= @station.installation_date %>"/><br>
   </div>
 
-  <div class="form-group">
-    <label>City:</label>
-    <input type="text" name="city" class="form control" value="<%= @station.city.name %>"/><br>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="city">City:</label>
+          <select class="form-control" id="city" name="city" value="<%= @station.city.name %>">
+            <% @cities.each do |city| %>
+              <option><%= city.name %></option>
+            <% end %>
+          </select>
+          <label>Current city: <%= @station.city.name %></label>
+        </div>
+      </div>
+    </div>
   </div>
 
   <button type="submit" class="btn btn-primary">Submit</button>
