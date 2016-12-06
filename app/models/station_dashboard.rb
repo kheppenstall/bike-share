@@ -1,4 +1,8 @@
+require_relative 'names'
+
 module StationDashboard
+
+  include Names
 
   def average_bikes_per_station
     return 0 if count.zero?
@@ -6,45 +10,32 @@ module StationDashboard
   end
 
   def station_with_most_bikes
-    stations = all.find_all{|station| station.dock_count == max_bike_count}
-    names(stations)
+    stations = where(dock_count: max_bike_count)
+    names(stations) rescue ""
   end
 
   def max_bike_count
-    return 0 if count == 0
+    return 0 if count.zero?
     maximum(:dock_count)
   end
 
-  def put_in_list(name, names, list)
-    if name == names.last
-      "#{list}#{name}"
-    else
-      "#{name}, #{list}"
-    end
-  end
-
-  def names(stations)
-    names = stations.map {|station| station.name}
-    names.reduce("") {|list, name| put_in_list(name, names, list)}
-  end
-
   def station_with_fewest_bikes
-    stations = all.find_all{|station| station.dock_count == min_bike_count}
-    names(stations)
+    stations = where(dock_count: min_bike_count)
+    names(stations) rescue ""
   end
 
   def min_bike_count
-    return 0 if count == 0
+    return 0 if count.zero?
     minimum(:dock_count)
   end
 
   def newest_station
-    station = all.max_by {|station| station.installation_date}
-    station.name rescue ""
+    date = maximum(:installation_date)
+    where(installation_date: date).first.name rescue ""
   end
 
   def oldest_station
-    station = all.min_by {|station| station.installation_date}
-    station.name rescue ""
+    date = minimum(:installation_date)
+    where(installation_date: date).first.name rescue ""
   end
 end

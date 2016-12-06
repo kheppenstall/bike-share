@@ -33,7 +33,7 @@ conditions = parse('./db/csv/weather.csv').map do |row|
                   )
 end
 
-trips = parse('./db/csv/trip-fixture.csv').map do |row|
+trips = parse('./db/csv/trip.csv').map do |row|
 
   subscription_type = SubscriptionType.find_or_create_by(name: row[:subscription_type])
   start_station = Station.find_by(name: row[:start_station_name])
