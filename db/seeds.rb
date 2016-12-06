@@ -18,13 +18,26 @@ end
 
 conditions = parse('./db/csv/weather.csv').map do |row|
 
-Condition.create(date: Date.strptime(row[:date], "%m/%d/%Y"),
-                 max_temperature: row[:max_temperature],
-                 mean_temperature: row[:mean_temperature],
-                 min_temperature: row[:min_temperature],
-                 mean_humidity: row[:mean_humidity],
-                 mean_visibility: row[:mean_visibility],
-                 mean_wind_speed: row[:mean_wind_speed],
-                 precipitation: row[:precipitation]
-                )
+  Condition.create(date:               Date.strptime(row[:date], "%m/%d/%Y"),
+                   max_temperature:    row[:max_temperature_f],
+                   mean_temperature:   row[:mean_temperature_f],
+                   min_temperature:    row[:min_temperature_f],
+                   mean_humidity:      row[:mean_humidity],
+                   mean_visibility:    row[:mean_visibility_miles],
+                   mean_wind_speed:    row[:mean_wind_speed_mph],
+                   precipitation:      row[:precipitation_inches]
+                  )
+end
+
+trips = parse('./db/csv/trip.csv').map do |row|
+
+  subscription_type = SubscriptionType.find_or_create_by(name: row[:subscription_type])
+  start_station = Station.find_by(name: row[:start_station_name])
+  start_station = Station.find_by(name: row[:end_station_name])
+  start_date = Date.strptime(row[:start_date], "%m/%d/%Y %H:%M")
+  condition = Condition.find_by(date: :start_date)
+  condition_id = condition.id rescue nil
+
+  Trip.create(
+                  )
 end
