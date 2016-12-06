@@ -67,27 +67,19 @@ describe "Station" do
       city = City.create(name: "denver")
       station = city.stations.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015")
 
-      expect(station.city_id).to eq(city.id)
+      expect(station.city).to eq(city)
     end
 
      it "with trips" do
       station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 2)
       trip = station.trips.create(duration: 300, start_date: "01/01/2016", end_date: "02/01/2016", end_station_id: 5, bike_id: 14, zip_code: 80918, condition_id: 2, subscription_type_id: 1)
 
-      expect(trip.station_id).to eq(station.id)
+      expect(trip.station).to eq(station)
     end
 
     it "with conditions through trips" do
       station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 2)
-      condition = Condition.create(date:                 "01/01/2016",
-                                   max_temperature:      80,
-                                   mean_temperature:     75,
-                                   min_temperature:      70,
-                                   mean_humidity:        93,
-                                   mean_visibility:      10,
-                                   mean_wind_speed:      5,
-                                   precipitation:        0,
-                                   )
+      condition = Condition.create(date:"01/01/2016")
       trip = station.trips.create(duration: 300, start_date: "01/01/2016", end_date: "02/01/2016", end_station_id: 5, bike_id: 14, zip_code: 80918, condition_id: condition.id, subscription_type_id: 1)
 
       expect(station.conditions.first).to eq(condition)

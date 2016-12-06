@@ -1,8 +1,7 @@
-<h1><%= @condition.date %></h1>
+<h1><%= @condition.date.inspect %></h1>
 
 <div>
   <ul>
-    <li>Condition: <%= @condition.date %></li>
     <li>Max Temperature: <%= @condition.max_temperature %></li>
     <li>Mean Temperature: <%= @condition.mean_temperature %></li>
     <li>Mean Temperature: <%= @condition.min_temperature %></li>
