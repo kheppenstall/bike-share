@@ -11,7 +11,13 @@
 
 <div class="container">
   <ul class="pager">
-    <li class="previous"><a href="/trips/page/<%= @previous %>">Previous</a></li>
-    <li class="next"><a href="/trips/page/<%= @next %>">Next</a></li>
+
+    <% if @previous%>
+      <li class="previous"><a href="/trips/page/<%= @previous %>">Previous</a></li>
+    <% end %>
+
+    <% if @next %>
+      <li class="next"><a href="/trips/page/<%= @next %>">Next</a></li>
+    <% end %>
   </ul>
 </div>
