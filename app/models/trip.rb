@@ -1,4 +1,5 @@
 require_relative 'next_previous'
+require_relative 'trip_dashboard'
 
 class Trip < ActiveRecord::Base
   belongs_to  :condition
@@ -25,5 +26,7 @@ class Trip < ActiveRecord::Base
   def end_information
     "End: #{end_date.inspect}, #{end_station.name rescue "Station Not Found"}"
   end
+
+  extend TripDashboard
 
 end
