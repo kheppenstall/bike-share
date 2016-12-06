@@ -25,8 +25,13 @@
   </div>
 
   <div class="form-group">
-    <label>City:</label>
-    <input type="text" name="city" class="form control" value="<%= @station.city.name %>"/><br>
+    <label for="city">City:</label>
+    <select class="form-control" id="city" name="city" value="<%= @station.city.name %>">
+      <% @cities.each do |city| %>
+        <option><%= city.name %></option>
+      <% end %>
+    </select>
+    <label>Current city: <%= @station.city.name %></label>
   </div>
 
   <button type="submit" class="btn btn-primary">Submit</button>

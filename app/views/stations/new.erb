@@ -18,8 +18,12 @@
   </div>
 
   <div class="form-group">
-    <label>City:</label>
-    <input type="text" name="city" class="form control" placeholder="San Jose, San Fransisco, Mountain View, Redwood City, or Palo Alto"/><br>
+    <label for="city">City:</label>
+    <select class="form-control" id="city" name="city">
+      <% @cities.each do |city| %>
+        <option><%= city.name %></option>
+      <% end %>
+    </select>
   </div>
 
   <button type="submit" class="btn btn-primary">Submit</button>
