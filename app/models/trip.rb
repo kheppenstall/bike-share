@@ -23,4 +23,12 @@ class Trip < ActiveRecord::Base
     "End: #{end_date}, #{end_station.name rescue "Station Not Found"}"
   end
 
+  def next
+    Trip.where("id > ?", id).first
+  end
+
+  def previous
+    Trip.where("id < ?", id).last
+  end
+
 end

@@ -9,8 +9,9 @@
   </div>
 </div>
 
-<ul class="pagination pagination-lg">
-  <% (1..@pages).each do |num| %>
-      <li><a href="/trips/page/<%= num %>"><%= num %></a></li>
-    <% end %>
-</ul>
+<div class="container">
+  <ul class="pager">
+    <li class="previous"><a href="/trips/page/<%= @previous %>">Previous</a></li>
+    <li class="next"><a href="/trips/page/<%= @next %>">Next</a></li>
+  </ul>
+</div>
