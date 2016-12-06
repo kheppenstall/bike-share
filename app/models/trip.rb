@@ -16,11 +16,11 @@ class Trip < ActiveRecord::Base
   end
 
   def start_information
-    "Start: #{start_date}, #{station.name rescue "Station Not Found"}"
+    "Start: #{start_date.inspect}, #{station.name rescue "Station Not Found"}"
   end
 
   def end_information
-    "End: #{end_date}, #{end_station.name rescue "Station Not Found"}"
+    "End: #{end_date.inspect}, #{end_station.name rescue "Station Not Found"}"
   end
 
   def next
