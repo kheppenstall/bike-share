@@ -1,12 +1,34 @@
 require_relative 'names'
 
 module ConditionDashboard
-
-  def average_number_of_rides(temp_floor, date)
-    conditions = where(date: date)
-    return 0 if conditions.count.zero?
-    (conditions.trips.count / conditions.count).round(1)
+  
+  def range(temp_floor)
+    (temp_floor..temp_floor + 9)
   end
+
+  def conditions_from_temperature(temp_floor)
+    Condition.all.find_all{|condition| range(temp_floor).include?(condition.max_temperature)}
+  end
+
+  def trips_from_conditions(conditions)
+    condition_ids = conditions.map {|condition| condition.id}
+    Trip.where(condition_ids.include?(:condition_id))
+  end
+  
+  def average_number_of_rides_from_temp(temp_floor, date)
+    conditions = conditions_from_temperature(temp_floor)
+    return 0 if conditions.count.zero?
+
+    trips = trips_from_conditions(conditions)
+    (trips.count / conditions.count.to_f).round(1)
+  end
+
+  def highest_number_of_rides_from_temp(temp_floor, date)
+    conditions = conditions_from_temperature(temp_floor)
+    max_condition = conditions.max_by {|condition| condition.trips.count}
+    max_condition.trips.count
+  end
+
 end
 
 
