@@ -1,18 +1,6 @@
 require './spec/spec_helper'
 
 describe 'Station dashboard' do
-  describe '.count' do
-    it 'counts total stations when there are 0 stations' do
-
-      expect(Station.count).to eq(0)
-    end
-
-    it 'counts total stations when there are stations' do
-      Station.create(name: "Station One", dock_count: 0, installation_date: "01/01/2016", city_id: 1)
-
-      expect(Station.count).to eq(1)
-    end
-  end
 
   describe '.average_bikes_per_station' do
     it 'calculates averages bikes per station' do

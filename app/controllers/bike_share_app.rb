@@ -4,6 +4,10 @@ class BikeShareApp < Sinatra::Base
 
   include Pagination
 
+  get '/' do
+    redirect '/stations'
+  end
+
   get '/stations' do
     @stations = Station.all
     erb :"stations/index"
