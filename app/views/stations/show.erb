@@ -1,26 +1,24 @@
 <div class = "container">
-  <h2><%= @station.name %></h2>
+  <h1><%= @station.name %></h1>
 </div>
 
 <div class = "container" >
-  <ul class = "list-group">
+  <ul class = "list-group" id="dashboard">
     <li class = "list-group-item">City: <%= @station.city.name %></li>
     <li class = "list-group-item">Dock Count: <%= @station.dock_count %></li>
     <li class = "list-group-item">Installation Date: <%= @station.installation_date.inspect %></li>
   </ul>
 </div>
 
-<class = "container">
-  <a class="btn btn-primary" href="/stations">
-    <i class="glyphicon glyphicon-circle-arrow-left"></i>
-      Return</a><br>
+<div class="container">
+  <div class="text-center"> 
+  <a class="btn btn-warning" href="/stations/<%= @station.id %>/edit">
+    <i class="glyphicon glyphicon-pencil"></i>
+      Edit</a><br></br>
 
-<a class="btn btn-warning" href="/stations/<%= @station.id %>/edit">
-  <i class="glyphicon glyphicon-pencil"></i>
-    Edit</a><br>
-
-  <form action="/stations/<%= @station.id %>" class="delete-form" method="POST">
-    <input name="_method" type="hidden" value="DELETE"/>
-    <input class="btn btn-danger" type="submit" value="Delete"/>
-  </form>
+    <form action="/stations/<%= @station.id %>" class="delete-form" method="POST">
+      <input name="_method" type="hidden" value="DELETE"/>
+      <input class="btn btn-danger" type="submit" value="Delete"/>
+    </form>
+  </div>
 </div>

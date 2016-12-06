@@ -1,17 +1,44 @@
+h1 {
+  text-align: center;
+  font-family: monospace;
+}
+
+.center {
+    margin: 0 auto;
+    width: 80%;
+}
+
+h2 {
+  font-family: monospace;
+  font-size: 60px;
+}
+
 .list-group-item
 {
-  min-height: 60px;
+  min-height: 10px;
   overflow:hidden;  
   position: relative;
   display: block;
   padding: 10px 15px;
   margin-bottom: -1px;
   background-color: #fff;
-  border: 1px white;
+  border: 1px transparent;
+  font-family: courier;
+  font-size: 20px;
+}
+
+#dashboard li {
+  font-weight: 500;
+  font-family: courier;
+  border: 1px solid black;
+}
+
+.form-group {
+    font-family: courier;
 }
 
 .btn {
-    padding: 10px 24px;
+    padding: 5px 24px;
     border: 0 none;
     font-weight: 500;
     letter-spacing: 1px;
@@ -20,9 +47,9 @@
 
 .blocks .btn-success, .btn-info
 {
-    padding: 24px 24px;
+    padding: 15px 5px;
     margin: 0 5px;  
     border-radius: 0;
     color: white;
-    width: 250px !important;
+    width: 340px !important;
 }

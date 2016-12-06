@@ -10,10 +10,11 @@
     </div>
 </div>
 
+
 <div class = "container">
     <div class="list-group row">
         <% @stations.each do |station| %>
-            <a href="/stations/<%= station.id %>" class="list-group-item col-xs-4">
+            <a href="/stations/<%= station.id %>" class="list-group-item col-xs-6">
             <%= station.name %>, <%= station.city.name %></a>
             <li class="list-group-item col-xs-6">
                 <form action="/stations/<%= station.id %>" class="delete-form" method="POST">
