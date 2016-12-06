@@ -32,9 +32,12 @@ describe "user visits /trips/new" do
 
     click_on("Submit")
 
-    expect(current_path).to eq("/trips")
+    expect(current_path).to eq("/trips/1")
     expect(page).to have_content("Station")
-    expect(page).to have_content("01/02/2016")
-    expect(page).to have_content("01/02/2016")
+    expect(page).to have_content("Duration of Trip: ")
+    expect(page).to have_content("Zip Code: ")
+    expect(page).to have_content("Bike ID: ")
+    expect(page).to have_content(14)
+    expect(page).to have_content(80918)
   end
 end
