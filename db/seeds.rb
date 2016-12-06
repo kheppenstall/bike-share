@@ -59,6 +59,7 @@ parse('./db/csv/trip.csv').each do |row|
   condition = Condition.find_by(date: start_date)
   condition_id = condition.id rescue nil
 
+
   Trip.create(duration: row[:duration],
               start_date: start_date,
               end_date: end_date,

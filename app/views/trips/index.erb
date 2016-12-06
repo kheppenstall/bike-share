@@ -1,10 +1,27 @@
 <div class="container">
   <h2>Trips</h2>
+</div>
+
+<div class = "container">
+    <div class="btn-group blocks">
+        <a type="button" class="btn btn-success"href='/trips/new'>Create a New Trip</a>
+        <a type="button" class="btn btn-info" href='/trips-dashboard'>Dashboard</a>
+        <br></br>
+    </div>
+</div>
+
+<div class="container">
   <div class="list-group">
     <% @trips.each do |trip| %>
       <a href="/trips/<%= trip.id %>" class="list-group-item">
         <%= trip.start_information %><br>
       <%= trip.end_information %></br></a>
+      <li class="list-group-item col-xs-12">
+          <form action="/trips/<%= trip.id %>" class="delete-form" method="POST">
+              <input name="_method" type="hidden" value="DELETE"/>
+              <input class="btn btn-danger" type="submit" value="Delete"/>
+          </form>
+        </li>
     <% end %>
   </div>
 </div>

@@ -179,6 +179,11 @@ class BikeShareApp < Sinatra::Base
     redirect '/trips/page/1'
   end
 
+  get '/trips-dashboard' do
+    @trips = Trip.all
+    erb :"trips/dashboard"
+  end
+
   get '/trips/page/:num' do |page_num|
     @trips     = on_page(Trip.all, page_num.to_i)
     @next = next_page(page_num.to_i, Trip.count)
