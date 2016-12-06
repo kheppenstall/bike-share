@@ -1,5 +1,3 @@
-require 'pry'
-
 class BikeShareApp < Sinatra::Base
 
   get '/stations' do
@@ -63,7 +61,6 @@ class BikeShareApp < Sinatra::Base
 
   post '/conditions' do
     condition = Condition.create(params["condition"])
-    # redirect "/conditions"
     redirect "/conditions/#{condition.id}"
 
   end
@@ -127,15 +124,41 @@ class BikeShareApp < Sinatra::Base
 
 ############### Trip CRUD ###################
 
+  ITEMS_PER_PAGE = 30
+  
+  def on_page(items, page_num)
+    range      = (((page_num - 1) * ITEMS_PER_PAGE)..(page_num * ITEMS_PER_PAGE - 1))
+    items[range]
+  end
+
+  def total_pages(item_count)
+    (item_count / 30.to_f).ceil
+  end
+  
+  def next_page(page_num, item_count)
+    if page_num == total_pages(item_count)
+      page_num
+    else
+      page_num + 1
+    end
+  end
+
+  def previous_page(page_num)
+    if page_num == 1
+      page_num
+    else
+      page_num - 1
+    end     
+  end
+
   get '/trips' do
     redirect '/trips/page/1'
   end
 
-  get '/trips/page/:num' do |num|
-    n          = num.to_i
-    range      = (((n - 1) * 30)..(n * 30 - 1))
-    @pages     = (Trip.count / 30.to_f).ceil
-    @trips     = Trip.all[range]
+  get '/trips/page/:num' do |page_num|
+    @trips     = on_page(Trip.all, page_num.to_i)
+    @next = next_page(page_num.to_i, Trip.count)
+    @previous = previous_page(page_num.to_i)
     erb :"trips/index"
   end
 
