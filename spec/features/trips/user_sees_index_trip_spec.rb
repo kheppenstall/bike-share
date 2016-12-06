@@ -34,13 +34,7 @@ describe "when user visits /trips" do
 
     expect(page).to have_content("1930")
     expect(page).to have_content("1944")
-
-    click_on('Next')
-    expect(current_path).to eq('/trips/page/1')
-
-    click_on('Previous')
-    expect(current_path).to eq('/trips/page/1')
-
+    expect(page).to_not have_content("Previous")
   end
 
   it "and sees 30 trip links on each page" do
@@ -66,11 +60,9 @@ describe "when user visits /trips" do
     expect(page).to_not have_content("1959")
     expect(page).to have_content("1960")
     expect(page).to have_content("1965")
+    expect(page).to_not have_content("Next")
     expect(current_path).to eq('/trips/page/2')
 
-    click_on('Next')
-
-    expect(current_path).to eq('/trips/page/2')
 
     click_on('Previous')
 
