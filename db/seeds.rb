@@ -6,6 +6,7 @@ require './app/models/condition'
 require './app/models/city'
 require './app/models/subscription_type'
 require './app/models/trip'
+require 'smarter_csv'
 
 include CSV_parser
 
