@@ -4,17 +4,17 @@ module TripDashboard
 
   def average_duration_of_ride
     return 0 if count.zero?
-    average("duration").round(1)
+    (average("duration").round(1) / 60).round(2)
   end
 
   def longest_ride
     return 0 if count.zero?
-    maximum("duration").round(1)
+    (maximum("duration").round(1) / 60).round(2)
   end
 
   def shortest_ride
     return 0 if count.zero?
-    minimum("duration").round(1)
+    (minimum("duration").round(1) / 60).round(2)
   end
 
   def start_station_with_most_rides
@@ -43,6 +43,11 @@ module TripDashboard
     end
   end
 
+  def best_bike_count
+    bikes = Trip.group(:bike_id).count("id")
+    bikes[best_bike]
+  end
+
   def worst_bike
     bikes = Trip.group(:bike_id).count("id")
     bikes.keys.min_by do |key|
@@ -50,10 +55,9 @@ module TripDashboard
     end
   end
 
-  def worst_bike_trip_count
-    Trip.all.find_all do |trip|
-      trip.bike_id == worst_bike
-    end.count
+  def worst_bike_count
+    bikes = Trip.group(:bike_id).count("id")
+    bikes[worst_bike]
   end
 
   def sub_type_count
@@ -61,34 +65,15 @@ module TripDashboard
     subs.values
   end
 
-  # def total_subs
-  #   sub_type_count[0] + sub_type_count[1]
-  # end
-
   def sub_percent
     total = SubscriptionType.joins(:trips).group(:name).count("id").values.sum
-    sub_type_count[0] / total
-    binding.pry
+    ((sub_type_count[1].to_f / total.to_f) * 100).round(2)
   end
-  # def customers
-  #   sub_type_count["Customer"].count
-  # end
-  #
-  # def customer_percentage
-  #   (customers.to_f / total_subs).round(2) * 100
-  # end
-  #
-  # def subscribers
-  #   subs["Subscriber"].count
-  # end
-  #
-  # def subscriber_percentage
-  #   (subscribers.to_f / total_subs).round(2) * 100
-  # end
-  #
-  # def total_subs
-  #   customers.to_f + subscribers.to_f
-  # end
+
+  def cust_percent
+    total = SubscriptionType.joins(:trips).group(:name).count("id").values.sum
+    ((sub_type_count[0].to_f / total.to_f) * 100).round(2)
+  end
 
   def top_trips_per_date
     trips_by_condition = Condition.joins(:trips).group(:date).count("id")
@@ -102,6 +87,10 @@ module TripDashboard
     max_trips = trips_by_condition.values.min
     date = trips_by_condition.key(max_trips)
     [date, max_trips]
+  end
+
+  def method_name
+    #Weather on the top-trips_per_date with the highest rides.
   end
 
 end
