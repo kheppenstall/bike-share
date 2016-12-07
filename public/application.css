@@ -16,7 +16,7 @@ h2 {
 .list-group-item
 {
   min-height: 10px;
-  overflow:hidden;  
+  overflow:hidden;
   position: relative;
   display: block;
   padding: 10px 15px;
@@ -48,7 +48,7 @@ h2 {
 .blocks .btn-success, .btn-info
 {
     padding: 15px 5px;
-    margin: 0 5px;  
+    margin: 0 5px;
     border-radius: 0;
     color: white;
     width: 340px !important;

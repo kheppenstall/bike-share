@@ -1,0 +1,16 @@
+<div class="container">
+  <h1>Trips Dashboard</h1>
+</div>
+
+<div class="container">
+  <ul class="list-group" id="dashboard">
+    <li class="list-group-item">Total count: <%= Station.count %></li>
+    <li class="list-group-item">Average bikes available per station: <%= Station.average_bikes_per_station %></li>
+    <li class="list-group-item">Most bikes available at a station: <%= Station.max_bike_count %></li>
+    <li class="list-group-item">Station(s) with most available bikes: <%= Station.station_with_most_bikes %></li>
+    <li class="list-group-item">Fewest bikes available at a station: <%= Station.min_bike_count %></li>
+    <li class="list-group-item">Station(s) with fewest available bikes: <%= Station.station_with_fewest_bikes %></li>
+    <li class="list-group-item">Most recently installed station: <%= Station.newest_station %></li>
+    <li class="list-group-item">Oldest station: <%= Station.oldest_station %></li>
+  </ul>
+</div>
