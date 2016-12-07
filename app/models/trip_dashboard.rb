@@ -18,44 +18,35 @@ module TripDashboard
   end
 
   def start_station_with_most_rides
-    return 0 if count.zero?
-    Station.all.max_by do |station|
-      station.trips.count
-    end
+    return "" if count.zero?
+    station = Station.joins(:trips).group(:name).count("id").max
+    station[0]
   end
 
   def end_station_with_most_rides
     return "" if count.zero?
-    ids = Trip.all.group_by {|trip| trip.end_station_id}
-    id  = ids.keys.max_by {|key| ids[key]}
-    Station.find(id)
+    station = Station.joins(:trips).group(:name).count("id").min
+    station[0]
   end
 
-  def rides_per_month
+  def rides_per_month(mon, yea)
     return "none" if count.zero?
-
-    #Month by Month breakdown of number of rides with subtotals for each year
-  end
-
-  def find_bike
-    Trip.all.group_by {|trip|trip.bike_id}
+    month_trips = Trip.where('extract(month FROM start_date) = ?',mon)
+    year_trips = month_trips.where('extract(year FROM start_date)= ?', yea)
+    year_trips.count
   end
 
   def best_bike
-    find_bike.keys.max_by do |key|
-      find_bike[key].count
+    bikes = Trip.group(:bike_id).count("id")
+    bikes.keys.max_by do |key|
+      bikes[key]
     end
   end
 
-  def best_bike_trip_count
-    Trip.all.find_all do |trip|
-      trip.bike_id == best_bike
-    end.count
-  end
-
   def worst_bike
-    find_bike.keys.min_by do |key|
-      find_bike[key].count
+    bikes = Trip.group(:bike_id).count("id")
+    bikes.keys.min_by do |key|
+      bikes[key]
     end
   end
 
@@ -67,7 +58,6 @@ module TripDashboard
 
   def sub_type_count
     SubscriptionType.all.group_by {|sub| sub.name}
-    #User subscription type breakout with both count and percentage.
   end
 
   def customers
@@ -75,7 +65,7 @@ module TripDashboard
   end
 
   def customer_percentage
-    (customers.to_f / total).round(2) * 100
+    (customers.to_f / total_subs).round(2) * 100
   end
 
   def subscribers
@@ -83,19 +73,25 @@ module TripDashboard
   end
 
   def subscriber_percentage
-    (subscribers.to_f / total).round(2) * 100
+    (subscribers.to_f / total_subs).round(2) * 100
   end
 
   def total_subs
     customers.to_f + subscribers.to_f
   end
 
-  def max_trips_per_date
-    #Single date with the highest number of trips with a count of those trips
+  def top_trips_per_date
+    trips_by_condition = Condition.joins(:trips).group(:date).count("id")
+    max_trips = trips_by_condition.values.max
+    date = trips_by_condition.key(max_trips)
+    [date, max_trips]
   end
 
-  def min_trips_per_Date
-    #Single date with the lowest number of trips with a count of those trips
+  def lowest_trips_per_date
+    trips_by_condition = Condition.joins(:trips).group(:date).count("id")
+    max_trips = trips_by_condition.values.min
+    date = trips_by_condition.key(max_trips)
+    [date, max_trips]
   end
 
 end
