@@ -33,7 +33,13 @@ class Station < ActiveRecord::Base
     origin_stations.keys.max_by {|key| origin_stations[key]}
   end
 
-  
+  def date_with_most_trips
+    return nil if trips.count.zero?
+    weather = trips.joins(:condition).group(:date).count("id")
+    weather.keys.max_by {|key| weather[key]}.inspect
+  end
+
+
 
 
 end
