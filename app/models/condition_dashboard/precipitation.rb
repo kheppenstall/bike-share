@@ -14,11 +14,11 @@ module Precipitation
   end
 
   def highest_number_of_rides_from_precipitation(floor)
-    precipitation_trips(floor).values.max
+    precipitation_trips(floor).values.max rescue 0
   end
 
   def lowest_number_of_rides_from_precipitation(floor)
-    precipitation_trips(floor).values.min
+    precipitation_trips(floor).values.min rescue 0
   end
 
 end
