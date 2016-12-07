@@ -185,4 +185,11 @@ describe "Trip Dashboardd" do
       expect(Trip.subscriber_percentage).to eq(67.0)
     end
   end
+
+  describe ".conditions_on_top_date" do
+    it "returns the conditions on the top date with the most trips" do
+
+      expect(Trip.conditions_on_top_date).to eq("something")
+    end
+  end
 end

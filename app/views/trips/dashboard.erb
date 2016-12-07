@@ -13,7 +13,9 @@
     <li class="list-group-item">Least Ridden Bike ID: <%= Trip.worst_bike %>(<%= Trip.worst_bike_count%> Rides)</li>
     <li class="list-group-item">Subscribers: <%= Trip.sub_type_count[1] %>(<%=Trip.sub_percent%>%) Customers: <%= Trip.sub_type_count[0] %>(<%=Trip.cust_percent%>%)</li>
     <li class="list-group-item">Date with Most Trips: <%= Trip.top_trips_per_date[0].inspect %>, (trips: <%= Trip.top_trips_per_date[1] %>)</li>
+    <li class="list-group-item">Conditions for date with most trips: <a href="/conditions/<%= Trip.conditions_on_top_date %>">Check it out! </a></li>
     <li class="list-group-item">Date with Least Trips: <%= Trip.lowest_trips_per_date[0].inspect %>, (trips: <%= Trip.lowest_trips_per_date[1] %>)</li>
+    <li class="list-group-item">Conditions for date with least trips: <a href="/conditions/<%= Trip.conditions_on_worst_date %>">Check it out! </a></li>
   </ul>
 </div>
 

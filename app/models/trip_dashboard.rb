@@ -89,8 +89,14 @@ module TripDashboard
     [date, max_trips]
   end
 
-  def method_name
-    #Weather on the top-trips_per_date with the highest rides.
+  def conditions_on_top_date
+    conditions = Condition.find_by(date: top_trips_per_date[0])
+    conditions.id
+  end
+
+  def conditions_on_worst_date
+    conditions = Condition.find_by(date: lowest_trips_per_date[0])
+    conditions.id
   end
 
 end
