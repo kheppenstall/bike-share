@@ -15,8 +15,6 @@ describe "when user visits /stations/:id" do
   it "user sees station attributes" do
     visit("/stations/#{@station.id}")
 
-    save_and_open_page
-
     expect(page).to have_content("#{@station.city.name}")
     expect(page).to have_content("#{@station.dock_count}")
     expect(page).to have_content("#{@station.installation_date.inspect}")
