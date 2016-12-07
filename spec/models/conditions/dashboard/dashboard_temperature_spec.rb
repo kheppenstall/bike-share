@@ -10,7 +10,7 @@ describe 'Condition dashboard' do
     end
 
     it 'assigns average numer of rides to zero when there are no trips in range' do
-      
+
       expect(Condition.average_number_of_rides_from_temp(0)).to eq(0)
     end
 
