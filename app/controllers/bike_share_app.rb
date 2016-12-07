@@ -106,53 +106,6 @@ class BikeShareApp < Sinatra::Base
     erb :"conditions/dashboard"
   end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ############### Trip CRUD ###################
 
   get '/trips' do
@@ -164,9 +117,10 @@ class BikeShareApp < Sinatra::Base
   end
 
   get '/trips/page/:num' do |page_num|
-    @trips     = on_page(Trip.all, page_num.to_i)
-    @next = next_page(page_num.to_i, Trip.count)
-    @previous = previous_page(page_num.to_i)
+    trips = Trip.where.not(start_date: nil)
+    @trips     = on_page(trips, page_num.to_i)
+    @next      = next_page(page_num.to_i, Trip.count)
+    @previous  = previous_page(page_num.to_i)
     erb :"trips/index"
   end
 

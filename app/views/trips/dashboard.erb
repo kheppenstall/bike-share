@@ -7,8 +7,8 @@
     <li class="list-group-item"><strong>Average Duration: </strong><%= Trip.average_duration_of_ride %> minute(s)</li>
     <li class="list-group-item"><strong>Longest Ride: </strong><%= Trip.longest_ride %> minutes</li>
     <li class="list-group-item"><strong>Shortest Ride: </strong><%= Trip.shortest_ride %> minute</li>
-    <li class="list-group-item"><strong>Station with the most trips: </strong><%= Trip.start_station_with_most_rides %></li>
-    <li class="list-group-item"><strong>Station with the fewest trips: </strong><%= Trip.end_station_with_most_rides %></li>
+    <li class="list-group-item"><strong>Station with the most rides as starting place: </strong><%= Trip.start_station_with_most_rides %></li>
+    <li class="list-group-item"><strong>Station with the most rides as ending place: </strong><%= Trip.end_station_with_most_rides %></li>
     <li class="list-group-item"><strong>Most Ridden Bike ID: </strong><%= Trip.best_bike %>(<%= Trip.best_bike_count%> Rides)</li>
     <li class="list-group-item"><strong>Least Ridden Bike ID: </strong><%= Trip.worst_bike %>(<%= Trip.worst_bike_count%> Rides)</li>
     <li class="list-group-item"><strong>Subscribers: </strong><%= Trip.sub_type_count[1] %>(<%=Trip.sub_percent%>%) Customers: <%= Trip.sub_type_count[0] %>(<%=Trip.cust_percent%>%)</li>
@@ -52,4 +52,10 @@
           <td><%= Trip.rides_per_month(n, 2014)%></td>
           <% end %>
         </tr>
+        <tr>
+          <td>2015</td>
+        <% (1..12).step(1) do |n|%>
+            <td><%= Trip.rides_per_month(n, 2015)%></td>
+            <% end %>
+          </tr>
   </tbody>

@@ -80,16 +80,16 @@ describe "Trip Dashboardd" do
       subscription  = SubscriptionType.create(name: "Customer")
       condition     = Condition.create(date: "02/01/1990")
       trip          = subscription.trips.create(duration: 300, start_date: "01/01/2016",
-                          end_date: "02/01/2016", station_id: final_station.id, end_station_id: start_station.id,
+                          end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
                           bike_id: 14, zip_code: 80918, condition_id: condition.id)
       trip_2        = subscription.trips.create(duration: 200, start_date: "01/01/2016",
-                          end_date: "02/01/2016", station_id: final_station.id, end_station_id: start_station.id,
+                          end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
                           bike_id: 14, zip_code: 80918, condition_id: condition.id)
       trip_3       = subscription.trips.create(duration: 200, start_date: "01/01/2016",
                           end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
                           bike_id: 14, zip_code: 80918, condition_id: condition.id)
 
-      expect(Trip.start_station_with_most_rides).to eq(final_station.name)
+      expect(Trip.start_station_with_most_rides).to eq(start_station.name)
     end
 
     it "returns empty string if there are no trips" do
@@ -111,7 +111,7 @@ describe "Trip Dashboardd" do
                           end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
                           bike_id: 14, zip_code: 80918, condition_id: condition.id)
       trip_3       = subscription.trips.create(duration: 200, start_date: "01/01/2016",
-                          end_date: "02/01/2016", station_id: final_station.id, end_station_id: start_station.id,
+                          end_date: "02/01/2016", station_id: start_station.id, end_station_id: start_station.id,
                           bike_id: 14, zip_code: 80918, condition_id: condition.id)
 
       expect(Trip.end_station_with_most_rides).to eq(final_station.name)
