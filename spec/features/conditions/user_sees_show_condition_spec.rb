@@ -24,7 +24,7 @@ describe "when user visits /conditions/:id" do
 
     click_on "Return"
 
-    expect(current_path).to eq("/conditions")
+    expect(current_path).to eq("/conditions/page/1")
   end
 
   it "user edits a condition" do
@@ -40,6 +40,6 @@ describe "when user visits /conditions/:id" do
 
     click_on("Delete")
 
-    expect(current_path).to eq('/conditions')
+    expect(current_path).to eq('/conditions/page/1')
   end
 end

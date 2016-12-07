@@ -15,6 +15,8 @@ describe "when user visits /stations/:id" do
   it "user sees station attributes" do
     visit("/stations/#{@station.id}")
 
+    save_and_open_page
+
     expect(page).to have_content("#{@station.city.name}")
     expect(page).to have_content("#{@station.dock_count}")
     expect(page).to have_content("#{@station.installation_date.inspect}")
@@ -34,5 +36,17 @@ describe "when user visits /stations/:id" do
     click_on("Delete")
 
     expect(current_path).to eq('/stations')
+  end
+
+  it "user sees station analytics" do
+    visit("/stations/#{@station.id}")
+
+    expect(page).to have_content("Rides Started at Station:")
+    expect(page).to have_content("Rides Ended at Station:")
+    expect(page).to have_content("Most Frequent Destination Station:")
+    expect(page).to have_content("Most Frequent Origin Station:")
+    expect(page).to have_content("Date With Most Rides:")
+    expect(page).to have_content("Most Frequent Zip Code of Riders:")
+    expect(page).to have_content("Most Frequently Used Bike (id):")
   end
 end
