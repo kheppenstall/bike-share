@@ -156,19 +156,6 @@ class BikeShareApp < Sinatra::Base
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 ############### Trip CRUD ###################
 
   get '/trips' do
@@ -180,9 +167,10 @@ class BikeShareApp < Sinatra::Base
   end
 
   get '/trips/page/:num' do |page_num|
-    @trips     = on_page(Trip.all, page_num.to_i)
-    @next = next_page(page_num.to_i, Trip.count)
-    @previous = previous_page(page_num.to_i)
+    trips = Trip.where.not(start_date: nil)
+    @trips     = on_page(trips, page_num.to_i)
+    @next      = next_page(page_num.to_i, Trip.count)
+    @previous  = previous_page(page_num.to_i)
     erb :"trips/index"
   end
 
@@ -198,21 +186,7 @@ class BikeShareApp < Sinatra::Base
   end
 
   post '/trips' do
-    trip_information  = params['trip']
-    start_date        = Time.parse(trip_information["start_date"])
-    end_date          = Time.parse(trip_information["end_date"])
-    bike_id           = trip_information["bike_id"]
-    zipcode           = trip_information["zip_code"]
-    start_station     = Station.find_by(name: trip_information["start_station_name"])
-    end_station       = Station.find_by(name: trip_information["end_station_name"])
-    duration          = (end_date - start_date).to_i
-    condition         = Condition.find_by(date: "#{start_date.to_date}")
-    condition_id      = condition.id rescue nil
-    subscription_type = SubscriptionType.find_by(name: trip_information['subscription_type'])
-    trip              = Trip.create(duration: duration, start_date: start_date,
-                        end_date: end_date, station_id: start_station.id, end_station_id: end_station.id,
-                        bike_id: bike_id, zip_code: zipcode,
-                        condition_id: condition_id, subscription_type_id: subscription_type.id)
+    trip = Trip.make_trip(params['trip'])
     redirect("/trips/#{trip.id}")
   end
 
@@ -224,24 +198,9 @@ class BikeShareApp < Sinatra::Base
   end
 
   put '/trips/:id' do |id|
-    @trip = Trip.find(id)
-    trip_information  = params['trip']
-    start_date        = Time.parse(trip_information["start_date"])
-    end_date          = Time.parse(trip_information["end_date"])
-    duration          = (end_date - start_date).to_i
-    start_station     = Station.find_by(name: trip_information['start_station_name']).id
-    end_station       = Station.find_by(name: trip_information["end_station_name"]).id
-    bike_id           = trip_information['bike_id']
-    zip_code          = trip_information['zip_code']
-    condition         = Condition.find_by(date: "#{start_date.to_date}")
-    condition_id      = condition.id rescue nil
-    subscription_type = SubscriptionType.find_by(name: trip_information['subscription_type'])
-    @trip.update(duration: duration,
-                start_date: start_date, end_date: end_date,
-                end_station_id: end_station, bike_id: bike_id,
-                zip_code: zip_code, station_id: start_station, condition_id: condition_id,
-                subscription_type_id: subscription_type.id)
-    redirect "/trips/#{@trip.id}"
+    trip = Trip.find(id)
+    Trip.update_trip(params['trip'], trip)
+    redirect "/trips/#{trip.id}"
   end
 
   delete '/trips/:id' do |id|
