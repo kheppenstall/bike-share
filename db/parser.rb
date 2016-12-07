@@ -1,4 +1,5 @@
 require 'csv'
+require 'smarter_csv'
 
 module CSV_parser
   

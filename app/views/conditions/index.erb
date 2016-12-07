@@ -15,7 +15,7 @@
     <div class="list-group row">
         <% @conditions.each do |condition| %>
             <a href="/conditions/<%= condition.id %>" class="list-group-item col-xs-6">
-            <%= condition.date %>, <%= something %></a>
+            <%= condition.date %></a>
             <li class="list-group-item col-xs-6">
                 <form action="/conditions/<%= condition.id %>" class="delete-form" method="POST">
                     <input name="_method" type="hidden" value="DELETE"/>
