@@ -44,4 +44,9 @@ class Station < ActiveRecord::Base
     zip_codes.keys.max_by {|key| zip_codes[key]} rescue nil
   end
 
+  def most_frequent_bike_id
+    bike_ids = trips.group_by {|trip| trip.bike_id}
+    bike_ids.keys.max_by {|key| bike_ids[key]} rescue nil
+  end
+
 end
