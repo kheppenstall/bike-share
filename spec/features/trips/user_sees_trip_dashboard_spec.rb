@@ -1,9 +1,5 @@
 require './spec/spec_helper'
 
-describe "when user visits /stations-dashboard" do
-  it "user sees dashboard" do
-    visit('/trips-dashboard')
+describe "when user visits /trips-dashboard" do
 
-    expect(page).to have_content("Trips Dashboard")
-  end
 end
