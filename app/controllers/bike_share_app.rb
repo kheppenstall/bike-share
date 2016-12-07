@@ -106,6 +106,40 @@ class BikeShareApp < Sinatra::Base
     erb :"conditions/dashboard"
   end
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ############### Trip CRUD ###################
 
   get '/trips' do
