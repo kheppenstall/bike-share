@@ -8,7 +8,7 @@ describe "When user deletes a condition" do
 
     click_on "Delete"
 
-    expect(current_path).to eq('/conditions')
+    expect(current_path).to eq('/conditions/page/1')
     expect(page).to_not have_content(@condition.date)
   end
 end
