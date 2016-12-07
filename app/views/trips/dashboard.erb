@@ -4,13 +4,49 @@
 
 <div class="container">
   <ul class="list-group" id="dashboard">
-    <li class="list-group-item">Total count: <%= Station.count %></li>
-    <li class="list-group-item">Average bikes available per station: <%= Station.average_bikes_per_station %></li>
-    <li class="list-group-item">Most bikes available at a station: <%= Station.max_bike_count %></li>
-    <li class="list-group-item">Station(s) with most available bikes: <%= Station.station_with_most_bikes %></li>
-    <li class="list-group-item">Fewest bikes available at a station: <%= Station.min_bike_count %></li>
-    <li class="list-group-item">Station(s) with fewest available bikes: <%= Station.station_with_fewest_bikes %></li>
-    <li class="list-group-item">Most recently installed station: <%= Station.newest_station %></li>
-    <li class="list-group-item">Oldest station: <%= Station.oldest_station %></li>
+    <li class="list-group-item">Average Duration: <%= Trip.average_duration_of_ride %></li>
+    <li class="list-group-item">Longest Ride: <%= Trip.longest_ride %></li>
+    <li class="list-group-item">Shortest Ride: <%= Trip.shortest_ride %></li>
+    <li class="list-group-item">Station with the most trips: <%= Trip.start_station_with_most_rides %></li>
+    <li class="list-group-item">Station with the fewest trips: <%= Trip.end_station_with_most_rides %></li>
+    <li class="list-group-item">Most Ridden Bike: <%= Trip.best_bike %></li>
+    <li class="list-group-item">Least Ridden Bike: <%= Trip.worst_bike %></li>
+    <li class="list-group-item">Date with Most Trips: <%= Trip.top_trips_per_date[0].inspect %>, (trips: <%= Trip.top_trips_per_date[1] %>)</li>
+    <li class="list-group-item">Date with Least Trips: <%= Trip.lowest_trips_per_date[0].inspect %>, (trips: <%= Trip.lowest_trips_per_date[1] %>)</li>
   </ul>
 </div>
+
+<h4>Bike Trips by Month in 2014</h4>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>YEAR</th>
+      <th>Jan</th>
+      <th>Feb</th>
+      <th>Mar</th>
+      <th>Apr</th>
+      <th>May</th>
+      <th>Jun</th>
+      <th>Jul</th>
+      <th>Aug</th>
+      <th>Sep</th>
+      <th>Oct</th>
+      <th>Nov</th>
+      <th>Dec</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2013</td>
+    <% (1..12).step(1) do |n|%>
+        <td><%= Trip.rides_per_month(n, 2013)%></td>
+        <% end %>
+      </tr>
+      <tr>
+        <td>2014</td>
+      <% (1..12).step(1) do |n|%>
+          <td><%= Trip.rides_per_month(n, 2014)%></td>
+          <% end %>
+        </tr>
+  </tbody>
