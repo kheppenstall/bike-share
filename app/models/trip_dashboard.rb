@@ -31,9 +31,7 @@ module TripDashboard
 
   def rides_per_month(month, year)
     return "none" if count.zero?
-    Trip.all.find_all do |trip|
-      trip.start_date.month == 1 && trip.start_date.year == 2013
-    end
+    Trip.where('extract(month FROM start_date) = ?',month)
     #Month by Month breakdown of number of rides with subtotals for each year
   end
 
