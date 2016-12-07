@@ -142,38 +142,29 @@ describe "Station" do
       expect(station_one.most_frequent_destination).to eq("Station Two")
     end
 
-    it 'returns the name of the station with the most trips ending at that station' do
+    it 'returns nil for stations with no trips' do
+      station_one = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
     
       expect(station_one.most_frequent_destination).to eq(nil)
     end
   end
 
-end
+  describe '.most_frequent_origin' do
+    it 'returns the station where the most trips originated' do
+      station_one = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
+      station_two = Station.create(name: "Station Two", dock_count: 0, installation_date: Date.strptime("02/23/2016", "%m/%d/%Y"), city_id: 1)
 
-
-
-
-# describe '.most_frequent_destination' do
-#     it 'finds most frequent station when there is one station with one trip' do
-#       station_one = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
-#       station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: 0, bike_id: 0, zip_code: 0, station_id: 0, subscription_type_id: 0)
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: station_one.id, bike_id: 0, zip_code: 0, subscription_type_id: 0)
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: station_two.id, bike_id: 0, zip_code: 0, subscription_type_id: 0)
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: station_two.id, bike_id: 0, zip_code: 0, subscription_type_id: 0)
     
-#       expect(Station.oldest_station).to eq(valid_date_station.name)
-#     end
+      expect(station_two.most_frequent_origin).to eq("Station One")
+    end
 
-#     it 'finds most frequent station from when multiple stations have trips' do
-#       station_one = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
-#       station_two = Station.create(name: "Station Two", dock_count: 0, installation_date: Date.strptime("02/23/2016", "%m/%d/%Y"), city_id: 1)
-#       station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: 0, bike_id: 0, zip_code: 0, station_id: 0, subscription_type_id: 0)
-#       station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: 0, bike_id: 0, zip_code: 0, station_id: 0, subscription_type_id: 0)
-#       station_two.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: 0, bike_id: 0, zip_code: 0, station_id: 0, subscription_type_id: 0)
-
-#       expect(Station.most_frequent_destination).to eq(valid_date_station.name)
-#     end
-
-#     it 'assigns nil to most frequent station when there are no stations with trips'
-
-#     dn
-
-
-#   end
+    it 'returns the nil for stations with no trips' do
+      station_one = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
+    
+      expect(station_one.most_frequent_origin).to eq(nil)
+    end
+  end
+end

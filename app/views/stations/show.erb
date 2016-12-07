@@ -6,7 +6,11 @@
   <ul class = "list-group" id="dashboard">
     <li class = "list-group-item">City: <%= @station.city.name %></li>
     <li class = "list-group-item">Dock Count: <%= @station.dock_count %></li>
-    <li class = "list-group-item">Installation Date: <%= @station.installation_date.inspect %></li>
+    <li class = "list-group-item">Installation Date: <%= @station.installation_date %></li>
+    <li class = "list-group-item">Rides Started at Station: <%= @station.rides_started_at_station %></li>
+     <li class = "list-group-item">Rides Started at Station: <%= @station.rides_ended_at_station %></li>
+    <li class = "list-group-item">Most Frequent Destination: <%= @station.most_frequent_destination %></li>
+
   </ul>
 </div>
 

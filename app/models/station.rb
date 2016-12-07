@@ -22,7 +22,15 @@ class Station < ActiveRecord::Base
   end
 
   def most_frequent_destination
-    nil
+    trips_ended_here = Trip.where(end_station_id: self.id)
+    end_stations = trips_ended_here.joins(:station).group(:name).count("id")
+    end_stations.keys.max_by {|key| end_stations[key]}
+  end
+
+  def most_frequent_origin
+    origin_stations = trips.joins(:station).group(:name).count("id")
+    origin_stations.keys.max_by {|key| end_stations[key]}
+
   end
 
 
