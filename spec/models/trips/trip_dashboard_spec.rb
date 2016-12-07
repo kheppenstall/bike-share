@@ -117,13 +117,6 @@ describe "Trip Dashboardd" do
     end
   end
 
-  describe ".rides_per_month" do
-    it "returns the month by month breakdown of trip into" do
-
-      expect(Trip.rides_per_month).to eq(0)
-    end
-  end
-
   describe ".best_bike" do
     it "returns the most popular bike id" do
       start_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
@@ -190,31 +183,6 @@ describe "Trip Dashboardd" do
 
       expect(Trip.customer_percentage).to eq(33.0)
       expect(Trip.subscriber_percentage).to eq(67.0)
-    end
-  end
-
-  describe ".trips_per_date" do
-    it "returns the date with the highest number of trips" do
-      start_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
-      final_station = Station.create(name: "Dock1", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
-      subscription  = SubscriptionType.create(name: "Customer")
-      condition     = Condition.create(date: "02/01/1990")
-      condition_2   = Condition.create(date: "01/01/1990")
-      trip          = subscription.trips.create(duration: 300, start_date: "02/01/2016",
-                      end_date: "02/02/2016", station_id: start_station.id, end_station_id: final_station.id,
-                      bike_id: 14, zip_code: 80918, condition_id: condition.id)
-      trip_2        = subscription.trips.create(duration: 200, start_date: "02/01/2016",
-                      end_date: "02/02/2016", station_id: start_station.id, end_station_id: final_station.id,
-                      bike_id: 14, zip_code: 80918, condition_id: condition.id)
-      trip_3        = subscription.trips.create(duration: 200, start_date: "01/01/2016",
-                      end_date: "03/01/2016", station_id: start_station.id, end_station_id: final_station.id,
-                      bike_id: 15, zip_code: 80918, condition_id: condition.id)
-      trip_4        = subscription.trips.create(duration: 200, start_date: "03/01/2016",
-                      end_date: "03/01/2016", station_id: start_station.id, end_station_id: final_station.id,
-                      bike_id: 15, zip_code: 80918, condition_id: condition_2.id)
-
-      expect(Trip.trips_per_date_count.to_s).to eq("1990-01-02")
-      # .strftime("%d/%m/%Y"))
     end
   end
 end

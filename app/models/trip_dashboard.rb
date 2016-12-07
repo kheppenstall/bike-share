@@ -34,9 +34,7 @@ module TripDashboard
     month_trips = Trip.where('extract(month FROM start_date) = ?',mon)
     year_trips = month_trips.where('extract(year FROM start_date)= ?', yea)
     year_trips.count
-    #Month by Month breakdown of number of rides with subtotals for each year
   end
-  # <%= Trip.rides_per_month(n, 2014)%>
 
   def best_bike
     bikes = Trip.group(:bike_id).count("id")
