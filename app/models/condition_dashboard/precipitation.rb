@@ -10,15 +10,16 @@ module Precipitation
   end
 
   def average_number_of_rides_from_precipitation(floor)
+    puts precipitation_trips(floor).inspect
     average(precipitation_trips(floor).values)
   end
 
   def highest_number_of_rides_from_precipitation(floor)
-    precipitation_trips(floor).values.max rescue 0
+    precipitation_trips(floor).values.max
   end
 
   def lowest_number_of_rides_from_precipitation(floor)
-    precipitation_trips(floor).values.min rescue 0
+    precipitation_trips(floor).values.min
   end
 
 end
