@@ -14,7 +14,6 @@ class BikeShareApp < Sinatra::Base
   end
 
   get '/stations-dashboard' do
-    @stations = Station.all
     erb :"stations/dashboard"
   end
 
@@ -96,6 +95,10 @@ class BikeShareApp < Sinatra::Base
   delete '/conditions/:id' do |id|
     Condition.delete(id)
     redirect '/conditions'
+  end
+
+  get '/conditions-dashboard' do
+    erb :"conditions/dashboard"
   end
 
 

@@ -1,26 +1,24 @@
 module Precipitation
 
-  def conditions_from_precip(precip_ceil)
-    ceil = precip_ceil.to_f
-    return all.where(precipitation: 0) if ceil == 0
-    all.find_all do |condition|
-      condition.precipitation <= ceil && condition.precipitation > ceil - 0.5
-    end
+ def range(floor)
+    [floor..floor + 0.5]
   end
 
-  def average_number_of_rides_from_precip(precip_ceil)
-    conditions = conditions_from_precip(precip_ceil)
-    average_rides(conditions)
+  def precipitation_trips(floor)
+   conditions = where(precipitation: range(floor))
+   conditions.joins(:trips).group(:date).count("id")
   end
 
-  def highest_number_of_rides_from_precip(precip_ceil)
-    conditions = conditions_from_precip(precip_ceil)
-    highest_number_of_rides(conditions)
+  def average_number_of_rides_from_precipitation(floor)
+    average(precipitation_trips(floor).values)
   end
 
-  def lowest_number_of_rides_from_precip(precip_ceil)
-    conditions = conditions_from_precip(precip_ceil)
-    lowest_number_of_rides(conditions)
+  def highest_number_of_rides_from_precipitation(floor)
+    precipitation_trips(floor).values.max
+  end
+
+  def lowest_number_of_rides_from_precipitation(floor)
+    precipitation_trips(floor).values.min
   end
 
 end
