@@ -57,14 +57,20 @@ class BikeShareApp < Sinatra::Base
 
 
 ########################################
-  get '/conditions' do
-    @conditions = Condition.all
-    erb :"conditions/index"
-  end
-
   get '/conditions-dashboard' do
     @conditions = Condition.all
     erb :"conditions/dashboard"
+  end
+
+  get '/conditions' do
+    redirect '/conditions/page/1'
+  end
+
+  get '/conditions/page/:num' do |page_num|
+    @conditions = on_page(Condition.all, page_num.to_i)
+    @next = next_page(page_num.to_i, Condition.count)
+    @previous = previous_page(page_num.to_i)
+    erb :"conditions/index"
   end
 
   get '/conditions/new' do
