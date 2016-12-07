@@ -19,14 +19,19 @@ module TripDashboard
 
   def start_station_with_most_rides
     return "" if count.zero?
-    station = Station.joins(:trips).group(:name).count("id").max
-    station[0]
+    station = Station.joins(:trips).group(:name).count("id")
+    station.keys.max_by do |key|
+      station[key]
+    end
   end
 
   def end_station_with_most_rides
     return "" if count.zero?
-    station = Station.joins(:trips).group(:name).count("id").min
-    station[0]
+    trips = Trip.joins(:station).group(:end_station_id).count("id")
+    station_id = trips.keys.max_by do |key|
+      trips[key]
+    end
+    Station.find(station_id).name
   end
 
   def rides_per_month(mon, yea)
