@@ -29,11 +29,14 @@ module TripDashboard
     station[0]
   end
 
-  def rides_per_month(month, year)
+  def rides_per_month(mon, yea)
     return "none" if count.zero?
-    Trip.where('extract(month FROM start_date) = ?',month)
+    month_trips = Trip.where('extract(month FROM start_date) = ?',mon)
+    year_trips = month_trips.where('extract(year FROM start_date)= ?', yea)
+    year_trips.count
     #Month by Month breakdown of number of rides with subtotals for each year
   end
+  # <%= Trip.rides_per_month(n, 2014)%>
 
   def best_bike
     bikes = Trip.group(:bike_id).count("id")
@@ -79,13 +82,18 @@ module TripDashboard
     customers.to_f + subscribers.to_f
   end
 
-  def trips_per_date_count
-    trips_by_condition = Condition.joins(:trips).group(:date).count("id").max
-    trips_by_condition[0]
+  def top_trips_per_date
+    trips_by_condition = Condition.joins(:trips).group(:date).count("id")
+    max_trips = trips_by_condition.values.max
+    date = trips_by_condition.key(max_trips)
+    [date, max_trips]
   end
 
-  def min_trips_per_date
-    #Single date with the lowest number of trips with a count of those trips
+  def lowest_trips_per_date
+    trips_by_condition = Condition.joins(:trips).group(:date).count("id")
+    max_trips = trips_by_condition.values.min
+    date = trips_by_condition.key(max_trips)
+    [date, max_trips]
   end
 
 end
