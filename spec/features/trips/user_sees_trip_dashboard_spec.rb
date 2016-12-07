@@ -1,6 +1,6 @@
 require './spec/spec_helper'
 
-describe "when user visits /stations-dashboard" do
+describe "when user visits /trips-dashboard" do
   it "user sees dashboard" do
     visit('/trips-dashboard')
 

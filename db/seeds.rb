@@ -50,15 +50,31 @@ parse('./db/csv/trip.csv').each do |row|
     start_station_name.gsub!("Kearny", "Kearney")
   end
 
+  if start_station_name.include?("Broadway at Main")
+    start_station_name.gsub!("Broadway at Main", "Stanford in Redwood City")
+  end
+
+  if end_station_name.include?("Broadway at Main")
+    end_station_name.gsub!("Broadway at Main", "Stanford in Redwood City")
+  end
+
+  if start_station_name.include?("San Jose Government Center")
+    start_station_name.gsub!("San Jose Government Center", "Santa Clara County Civic Center")
+  end
+
+  if end_station_name.include?("San Jose Government Center")
+    end_station_name.gsub!("San Jose Government Center", "Santa Clara County Civic Center")
+  end
+
   subscription_type = SubscriptionType.find_or_create_by(name: row[:subscription_type])
-  start_station = Station.find_by(name: start_station_name)
-  start_station_id = start_station.id rescue nil
-  end_station = Station.find_by(name: end_station_name)
-  end_station_id = end_station.id rescue nil
-  end_date = Date.strptime(row[:end_date], "%m/%d/%Y %H:%M").strftime("%m/%d/%Y")
-  start_date = Date.strptime(row[:start_date], "%m/%d/%Y %H:%M").strftime("%m/%d/%Y")
-  condition = Condition.find_by(date: start_date)
-  condition_id = condition.id rescue nil
+  start_station     = Station.find_by(name: start_station_name)
+  start_station_id  = start_station.id rescue nil
+  end_station       = Station.find_by(name: end_station_name)
+  end_station_id    = end_station.id rescue nil
+  end_date          = Date.strptime(row[:end_date], "%m/%d/%Y %H:%M").strftime("%m/%d/%Y")
+  start_date        = Date.strptime(row[:start_date], "%m/%d/%Y %H:%M").strftime("%m/%d/%Y")
+  condition         = Condition.find_by(date: start_date)
+  condition_id      = condition.id rescue nil
 
 
   Trip.create(duration: row[:duration],

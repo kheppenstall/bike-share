@@ -57,28 +57,38 @@ module TripDashboard
   end
 
   def sub_type_count
-    SubscriptionType.all.group_by {|sub| sub.name}
+    subs = SubscriptionType.joins(:trips).group(:name).count("id")
+    subs.values
   end
 
-  def customers
-    sub_type_count["Customer"].count
-  end
+  # def total_subs
+  #   sub_type_count[0] + sub_type_count[1]
+  # end
 
-  def customer_percentage
-    (customers.to_f / total_subs).round(2) * 100
+  def sub_percent
+    total = SubscriptionType.joins(:trips).group(:name).count("id").values.sum
+    sub_type_count[0] / total
+    binding.pry
   end
-
-  def subscribers
-    sub_type_count["Subscriber"].count
-  end
-
-  def subscriber_percentage
-    (subscribers.to_f / total_subs).round(2) * 100
-  end
-
-  def total_subs
-    customers.to_f + subscribers.to_f
-  end
+  # def customers
+  #   sub_type_count["Customer"].count
+  # end
+  #
+  # def customer_percentage
+  #   (customers.to_f / total_subs).round(2) * 100
+  # end
+  #
+  # def subscribers
+  #   subs["Subscriber"].count
+  # end
+  #
+  # def subscriber_percentage
+  #   (subscribers.to_f / total_subs).round(2) * 100
+  # end
+  #
+  # def total_subs
+  #   customers.to_f + subscribers.to_f
+  # end
 
   def top_trips_per_date
     trips_by_condition = Condition.joins(:trips).group(:date).count("id")

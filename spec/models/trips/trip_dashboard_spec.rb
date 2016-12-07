@@ -164,7 +164,7 @@ describe "Trip Dashboardd" do
       subscription_2  = SubscriptionType.create(name: "Subscriber")
       subscription_3  = SubscriptionType.create(name: "Subscriber")
 
-      expect(Trip.customers).to eq(1)
+      expect(Trip.sub_type_count).to eq(1)
       expect(Trip.subscribers).to eq(2)
     end
 

@@ -11,13 +11,13 @@
     <li class="list-group-item">Station with the fewest trips: <%= Trip.end_station_with_most_rides %></li>
     <li class="list-group-item">Most Ridden Bike: <%= Trip.best_bike %></li>
     <li class="list-group-item">Least Ridden Bike: <%= Trip.worst_bike %></li>
-    <li class="list-group-item">Subscribers: <%= Trip.subscribers %></li>
+    <li class="list-group-item">Subscribers: <%= Trip.sub_type_count[1] %>(<%=Trip.sub_percent%>%) Customers: <%= Trip.sub_type_count[0] %></li>
     <li class="list-group-item">Date with Most Trips: <%= Trip.top_trips_per_date[0].inspect %>, (trips: <%= Trip.top_trips_per_date[1] %>)</li>
     <li class="list-group-item">Date with Least Trips: <%= Trip.lowest_trips_per_date[0].inspect %>, (trips: <%= Trip.lowest_trips_per_date[1] %>)</li>
   </ul>
 </div>
 
-<h4>Bike Trips by Month in 2014</h4>
+<h4>Bike Trips by Month</h4>
 
 <table class="table table-hover">
   <thead>
