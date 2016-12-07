@@ -4,19 +4,22 @@
 
 <div class="container">
   <ul class="list-group" id="dashboard">
-    <li class="list-group-item">Average Duration: <%= Trip.average_duration_of_ride %></li>
-    <li class="list-group-item">Longest Ride: <%= Trip.longest_ride %></li>
-    <li class="list-group-item">Shortest Ride: <%= Trip.shortest_ride %></li>
+    <li class="list-group-item">Average Duration: <%= Trip.average_duration_of_ride %> minute(s)</li>
+    <li class="list-group-item">Longest Ride: <%= Trip.longest_ride %> minutes</li>
+    <li class="list-group-item">Shortest Ride: <%= Trip.shortest_ride %> minute</li>
     <li class="list-group-item">Station with the most trips: <%= Trip.start_station_with_most_rides %></li>
     <li class="list-group-item">Station with the fewest trips: <%= Trip.end_station_with_most_rides %></li>
-    <li class="list-group-item">Most Ridden Bike: <%= Trip.best_bike %></li>
-    <li class="list-group-item">Least Ridden Bike: <%= Trip.worst_bike %></li>
+    <li class="list-group-item">Most Ridden Bike ID: <%= Trip.best_bike %>(<%= Trip.best_bike_count%> Rides)</li>
+    <li class="list-group-item">Least Ridden Bike ID: <%= Trip.worst_bike %>(<%= Trip.worst_bike_count%> Rides)</li>
+    <li class="list-group-item">Subscribers: <%= Trip.sub_type_count[1] %>(<%=Trip.sub_percent%>%) Customers: <%= Trip.sub_type_count[0] %>(<%=Trip.cust_percent%>%)</li>
     <li class="list-group-item">Date with Most Trips: <%= Trip.top_trips_per_date[0].inspect %>, (trips: <%= Trip.top_trips_per_date[1] %>)</li>
+    <li class="list-group-item">Conditions for date with most trips: <a href="/conditions/<%= Trip.conditions_on_top_date %>">Check it out! </a></li>
     <li class="list-group-item">Date with Least Trips: <%= Trip.lowest_trips_per_date[0].inspect %>, (trips: <%= Trip.lowest_trips_per_date[1] %>)</li>
+    <li class="list-group-item">Conditions for date with least trips: <a href="/conditions/<%= Trip.conditions_on_worst_date %>">Check it out! </a></li>
   </ul>
 </div>
 
-<h4>Bike Trips by Month in 2014</h4>
+<h4>Bike Trips by Month</h4>
 
 <table class="table table-hover">
   <thead>

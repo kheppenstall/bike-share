@@ -164,7 +164,7 @@ describe "Trip Dashboardd" do
       subscription_2  = SubscriptionType.create(name: "Subscriber")
       subscription_3  = SubscriptionType.create(name: "Subscriber")
 
-      expect(Trip.customers).to eq(1)
+      expect(Trip.sub_type_count).to eq(1)
       expect(Trip.subscribers).to eq(2)
     end
 
@@ -183,6 +183,13 @@ describe "Trip Dashboardd" do
 
       expect(Trip.customer_percentage).to eq(33.0)
       expect(Trip.subscriber_percentage).to eq(67.0)
+    end
+  end
+
+  describe ".conditions_on_top_date" do
+    it "returns the conditions on the top date with the most trips" do
+
+      expect(Trip.conditions_on_top_date).to eq("something")
     end
   end
 end
