@@ -85,4 +85,141 @@ describe "Station" do
       expect(station.conditions.first).to eq(condition)
     end
   end
+  
+  describe '.rides_started_at_station' do
+    it 'returns 0 when no rides were started at station' do
+      station = Station.create(name: "Station One", dock_count: 0, installation_date: "Not a date", city_id: 1)
+
+      expect(station.rides_started_at_station).to eq(0)
+    end
+
+    it 'returns the number of rides started at the station' do
+      station = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
+      station.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: 0, bike_id: 0, zip_code: 0, station_id: 0, subscription_type_id: 0)
+    
+      expect(station.rides_started_at_station).to eq(1)
+    end
+
+    it 'does not include rides ended at the station' do
+      station = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
+      Trip.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: 0, bike_id: 0, zip_code: 0, station_id: 0, subscription_type_id: 0)
+    
+      expect(station.rides_started_at_station).to eq(0)
+    end
+  end
+
+  describe '.rides_ended_at_station' do
+    it 'returns 0 when no rides were ended at station' do
+      station = Station.create(name: "Station One", dock_count: 0, installation_date: "Not a date", city_id: 1)
+
+      expect(station.rides_ended_at_station).to eq(0)
+    end
+
+    it 'returns the number of rides ended at the station' do
+      station = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
+      Trip.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: station.id, bike_id: 0, zip_code: 0, station_id: 0, subscription_type_id: 0)
+    
+      expect(station.rides_ended_at_station).to eq(1)
+    end
+
+    it 'does not include rides not ended at the station' do
+      station = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
+      Trip.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: -1, bike_id: 0, zip_code: 0, station_id: 0, subscription_type_id: 0)
+    
+      expect(station.rides_ended_at_station).to eq(0)
+    end
+  end
+
+  describe '.most_frequent_destination' do
+    it 'returns the station where the most trips end' do
+      station_one = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
+      station_two = Station.create(name: "Station Two", dock_count: 0, installation_date: Date.strptime("02/23/2016", "%m/%d/%Y"), city_id: 1)
+
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: station_one.id, bike_id: 0, zip_code: 0, subscription_type_id: 0)
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: station_two.id, bike_id: 0, zip_code: 0, subscription_type_id: 0)
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: station_two.id, bike_id: 0, zip_code: 0, subscription_type_id: 0)
+    
+      expect(station_one.most_frequent_destination).to eq("Station Two")
+    end
+
+    it 'returns nil for stations with no trips' do
+      station_one = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
+    
+      expect(station_one.most_frequent_destination).to eq(nil)
+    end
+  end
+
+  describe '.most_frequent_origin' do
+    it 'returns the station where the most trips originated' do
+      station_one = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
+      station_two = Station.create(name: "Station Two", dock_count: 0, installation_date: Date.strptime("02/23/2016", "%m/%d/%Y"), city_id: 1)
+
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: station_one.id, bike_id: 0, zip_code: 0, subscription_type_id: 0)
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: station_two.id, bike_id: 0, zip_code: 0, subscription_type_id: 0)
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: station_two.id, bike_id: 0, zip_code: 0, subscription_type_id: 0)
+    
+      expect(station_two.most_frequent_origin).to eq("Station One")
+    end
+
+    it 'returns the nil for stations with no trips' do
+      station_one = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
+    
+      expect(station_one.most_frequent_origin).to eq(nil)
+    end
+  end
+
+  describe '.date_with_most_trips' do
+    it 'returns the date when the most trips started at the station' do
+      station_one = Station.create(name: "Station One", dock_count: 0, installation_date: "01/01/2015", city_id: 1)
+      condition = Condition.create(date: "01/01/2015")
+
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: 0, bike_id: 0, zip_code: 0, subscription_type_id: 0, condition_id: condition.id)
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: 0, bike_id: 0, zip_code: 0, subscription_type_id: 0, condition_id: condition.id)
+      station_one.trips.create(duration: 0, start_date: "01/02/2015", end_date: "01/02/2015", end_station_id: 0, bike_id: 0, zip_code: 0, subscription_type_id: 0, condition_id: 0)
+      
+      expect(station_one.date_with_most_trips).to eq("Thu, 01 Jan 2015")
+    end
+
+    it 'returns the nil when there are no trips when the most trips started at the station' do
+      station_one = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
+          
+      expect(station_one.date_with_most_trips).to eq(nil)
+    end
+  end
+
+  describe '.most_frequent_zip_code' do
+    it 'returns the most frequent user zip code of rides starting at that station' do
+      station_one = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
+
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: 0, bike_id: 0, zip_code: 0, subscription_type_id: 0)
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: 0, bike_id: 0, zip_code: 1, subscription_type_id: 0)
+      station_one.trips.create(duration: 0, start_date: "01/02/2015", end_date: "01/02/2015", end_station_id: 0, bike_id: 0, zip_code: 1, subscription_type_id: 0)
+      
+      expect(station_one.most_frequent_zip_code).to eq(1)
+    end
+
+    it 'returns nil when there are no trips from the station' do
+      station_one = Station.create(name: "Station One", dock_count: 0, installation_date: "02/02/2016", city_id: 1)
+    
+      expect(station_one.most_frequent_zip_code).to eq(nil)
+    end
+  end
+
+  describe '.most_frequent_bike_id' do
+    it 'returns the most frequent user bike code of rides starting at that station' do
+      station_one = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
+
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: 0, bike_id: 0, zip_code: 0, subscription_type_id: 0)
+      station_one.trips.create(duration: 0, start_date: "01/01/2015", end_date: "01/01/2015", end_station_id: 0, bike_id: 1, zip_code: 0, subscription_type_id: 0)
+      station_one.trips.create(duration: 0, start_date: "01/02/2015", end_date: "01/02/2015", end_station_id: 0, bike_id: 1, zip_code: 0, subscription_type_id: 0)
+      
+      expect(station_one.most_frequent_bike_id).to eq(1)
+    end
+
+    it 'returns nil when there are no trips from the station' do
+      station_one = Station.create(name: "Station One", dock_count: 0, installation_date: "02/02/2016", city_id: 1)
+    
+      expect(station_one.most_frequent_bike_id).to eq(nil)
+    end
+  end
 end
