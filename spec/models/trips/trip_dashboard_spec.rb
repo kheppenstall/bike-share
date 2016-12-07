@@ -146,6 +146,11 @@ describe "Trip Dashboardd" do
       expect(Trip.rides_per_month(8, 2015)).to eq(0)
       expect(Trip.rides_per_month(9, 2014)).to eq(1)
     end
+
+    it "retruns none if there are no trips" do
+
+      expect(Trip.rides_per_month(1, 2016)).to eq("none")
+    end
   end
 
   describe ".best_bike" do
