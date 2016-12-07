@@ -1,14 +1,27 @@
-<h1>Conditions</h1>
-<a class="btn btn-primary" href="/conditions/new">
-    Create a New Condition</a><br>
+<div class = "container">
+    <h2>Conditions</h2>
+</div>
 
-<a class="btn btn-primary" href="/conditions-dashboard">
-    Dashboard</a><br>
+<div class = "container">
+    <div class="btn-group blocks">
+        <a type="button" class="btn btn-success"href='/conditions/new'>Create a New Condition</a>
+        <a type="button" class="btn btn-info" href='/conditions-dashboard'>Dashboard</a>
+        <br></br>
+    </div>
+</div>
 
-<div>
-  <ul>
-  <% @conditions.each do |condition| %>
-      <h2><a href="/conditions/<%= condition.id %>"><%= condition.date %></a></h2>
-  <% end %>
-</ul>
+
+<div class = "container">
+    <div class="list-group row">
+        <% @conditions.each do |condition| %>
+            <a href="/conditions/<%= condition.id %>" class="list-group-item col-xs-6">
+            <%= condition.date %>, <%= something %></a>
+            <li class="list-group-item col-xs-6">
+                <form action="/conditions/<%= condition.id %>" class="delete-form" method="POST">
+                    <input name="_method" type="hidden" value="DELETE"/>
+                    <input class="btn btn-danger" type="submit" value="Delete"/>
+                </form>
+            </li>
+       <% end %>
+    </div>
 </div>

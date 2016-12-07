@@ -6,10 +6,5 @@ class Condition < ActiveRecord::Base
 
   validates :date,    presence: true, uniqueness: true
 
-<<<<<<< HEAD
-  # extend ConditionDashboard
-end
-=======
   extend ConditionDashboard
 end
->>>>>>> master
