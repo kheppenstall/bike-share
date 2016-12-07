@@ -131,7 +131,7 @@ describe "Station" do
   end
 
   describe '.most_frequent_destination' do
-    it 'returns nil when there are no trips starting at the station' do
+    it 'returns the station where the most trips end' do
       station_one = Station.create(name: "Station One", dock_count: 0, installation_date: Date.strptime("02/22/2016", "%m/%d/%Y"), city_id: 1)
       station_two = Station.create(name: "Station Two", dock_count: 0, installation_date: Date.strptime("02/23/2016", "%m/%d/%Y"), city_id: 1)
 
