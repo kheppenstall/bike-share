@@ -10,7 +10,6 @@ module Precipitation
   end
 
   def average_number_of_rides_from_precipitation(floor)
-    puts precipitation_trips(floor).inspect
     average(precipitation_trips(floor).values)
   end
 
