@@ -26,7 +26,7 @@ describe 'Condition dashboard' do
     end
 
     it 'assigns average numer of rides to zero when there are no trips in visibility range' do
-      
+
       expect(Condition.average_number_of_rides_from_visibility(0)).to eq(0)
     end
   end
@@ -58,7 +58,7 @@ describe 'Condition dashboard' do
     end
 
     it 'assigns highest numer of rides to nil when there are no trips in visibility range' do
-      
+
       expect(Condition.highest_number_of_rides_from_visibility(0)).to eq(nil)
     end
   end
@@ -90,7 +90,7 @@ describe 'Condition dashboard' do
     end
 
     it 'assigns lowest numer of rides to nil when there are no trips in visibility range' do
-      
+
       expect(Condition.lowest_number_of_rides_from_visibility(0)).to eq(nil)
     end
   end
