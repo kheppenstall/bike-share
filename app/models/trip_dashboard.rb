@@ -35,25 +35,17 @@ module TripDashboard
     #Month by Month breakdown of number of rides with subtotals for each year
   end
 
-  def find_bike
-    Trip.all.group_by {|trip|trip.bike_id}
-  end
-
   def best_bike
-    find_bike.keys.max_by do |key|
-      find_bike[key].count
+    bikes = Trip.group(:bike_id).count("id")
+    bikes.keys.max_by do |key|
+      bikes[key]
     end
   end
 
-  def best_bike_trip_count
-    Trip.all.find_all do |trip|
-      trip.bike_id == best_bike
-    end.count
-  end
-
   def worst_bike
-    find_bike.keys.min_by do |key|
-      find_bike[key].count
+    bikes = Trip.group(:bike_id).count("id")
+    bikes.keys.min_by do |key|
+      bikes[key]
     end
   end
 
