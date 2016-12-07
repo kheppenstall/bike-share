@@ -56,14 +56,28 @@ class BikeShareApp < Sinatra::Base
 
 
 
-########################################
-  get '/conditions-dashboard' do
-    @conditions = Condition.all
-    erb :"conditions/dashboard"
-  end
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########################################
   get '/conditions' do
     redirect '/conditions/page/1'
+  end
+
+  get '/conditions-dashboard' do
+    erb :"conditions/dashboard"
   end
 
   get '/conditions/page/:num' do |page_num|
@@ -106,10 +120,6 @@ class BikeShareApp < Sinatra::Base
   delete '/conditions/:id' do |id|
     Condition.delete(id)
     redirect '/conditions'
-  end
-
-  get '/conditions-dashboard' do
-    erb :"conditions/dashboard"
   end
 
 
