@@ -1,5 +1,5 @@
-<div class = "container">
-    <h2>Conditions</h2>
+<div class="container">
+  <h2>Conditions</h2>
 </div>
 
 <div class = "container">
@@ -10,18 +10,30 @@
     </div>
 </div>
 
+<div class="container">
+  <div class="list-group">
+    <% @conditions.each do |condition| %>
+      <a href="/conditions/<%= condition.id %>" class="list-group-item">
+        <%= condition.date %><br></a>
+      <li class="list-group-item col-xs-12">
+          <form action="/conditions/<%= condition.id %>" class="delete-form" method="POST">
+              <input name="_method" type="hidden" value="DELETE"/>
+              <input class="btn btn-danger" type="submit" value="Delete"/>
+          </form>
+        </li>
+    <% end %>
+  </div>
+</div>
 
-<div class = "container">
-    <div class="list-group row">
-        <% @conditions.each do |condition| %>
-            <a href="/conditions/<%= condition.id %>" class="list-group-item col-xs-6">
-            <%= condition.date %></a>
-            <li class="list-group-item col-xs-6">
-                <form action="/conditions/<%= condition.id %>" class="delete-form" method="POST">
-                    <input name="_method" type="hidden" value="DELETE"/>
-                    <input class="btn btn-danger" type="submit" value="Delete"/>
-                </form>
-            </li>
-       <% end %>
-    </div>
+<div class="container">
+  <ul class="pager">
+
+    <% if @previous%>
+      <li class="previous"><a href="/conditions/page/<%= @previous %>">Previous</a></li>
+    <% end %>
+
+    <% if @next %>
+      <li class="next"><a href="/conditions/page/<%= @next %>">Next</a></li>
+    <% end %>
+  </ul>
 </div>
