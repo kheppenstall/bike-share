@@ -75,18 +75,18 @@ describe "Trip Dashboardd" do
   describe ".start_station_with_most_rides" do
 
     it "finds the station with the most rides" do
-      start_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
+      start_station = Station.create(name: "Dock", dock_count: 10, installation_date: "01/01/2015", city_id: 1)
       final_station = Station.create(name: "Dock1", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
       subscription  = SubscriptionType.create(name: "Customer")
       condition     = Condition.create(date: "02/01/1990")
       trip          = subscription.trips.create(duration: 300, start_date: "01/01/2016",
-                          end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
+                          end_date: "02/01/2016", station_id: final_station.id, end_station_id: final_station.id,
                           bike_id: 14, zip_code: 80918, condition_id: condition.id)
       trip_2        = subscription.trips.create(duration: 200, start_date: "01/01/2016",
-                          end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
+                          end_date: "02/01/2016", station_id: final_station.id, end_station_id: final_station.id,
                           bike_id: 14, zip_code: 80918, condition_id: condition.id)
 
-      expect(Trip.start_station_with_most_rides).to eq(start_station)
+      expect(Trip.start_station_with_most_rides).to eq(final_station.name)
     end
 
     it "returns zero if there are no trips" do
@@ -180,23 +180,54 @@ describe "Trip Dashboardd" do
 
   describe ".sub_type_count" do
     it "returns subscription type counts" do
-      start_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
-      final_station = Station.create(name: "Dock1", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
       subscription  = SubscriptionType.create(name: "Customer")
       subscription_2  = SubscriptionType.create(name: "Subscriber")
       subscription_3  = SubscriptionType.create(name: "Subscriber")
-      condition     = Condition.create(date: "02/01/1990")
-      trip          = subscription.trips.create(duration: 300, start_date: "01/01/2016",
-                      end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
-                      bike_id: 14, zip_code: 80918, condition_id: condition.id)
-      trip_2        = subscription.trips.create(duration: 200, start_date: "01/01/2016",
-                      end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
-                      bike_id: 14, zip_code: 80918, condition_id: condition.id)
-      trip_3        = subscription_3.trips.create(duration: 200, start_date: "01/01/2016",
-                      end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
-                      bike_id: 15, zip_code: 80918, condition_id: condition.id)
 
-      expect(Trip.sub_type_count).to eq(0)
+      expect(Trip.customers).to eq(1)
+      expect(Trip.subscribers).to eq(2)
+    end
+
+    it "returns the total number of subscription types" do
+      subscription    = SubscriptionType.create(name: "Customer")
+      subscription_2  = SubscriptionType.create(name: "Subscriber")
+      subscription_3  = SubscriptionType.create(name: "Subscriber")
+
+      expect(Trip.total_subs).to eq(3)
+    end
+
+    it "returns the subscription types percentages" do
+      subscription    = SubscriptionType.create(name: "Customer")
+      subscription_2  = SubscriptionType.create(name: "Subscriber")
+      subscription_3  = SubscriptionType.create(name: "Subscriber")
+
+      expect(Trip.customer_percentage).to eq(33.0)
+      expect(Trip.subscriber_percentage).to eq(67.0)
+    end
+  end
+
+  describe ".trips_per_date" do
+    it "returns the date with the highest number of trips" do
+      start_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
+      final_station = Station.create(name: "Dock1", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
+      subscription  = SubscriptionType.create(name: "Customer")
+      condition     = Condition.create(date: "02/01/1990")
+      condition_2   = Condition.create(date: "01/01/1990")
+      trip          = subscription.trips.create(duration: 300, start_date: "02/01/2016",
+                      end_date: "02/02/2016", station_id: start_station.id, end_station_id: final_station.id,
+                      bike_id: 14, zip_code: 80918, condition_id: condition.id)
+      trip_2        = subscription.trips.create(duration: 200, start_date: "02/01/2016",
+                      end_date: "02/02/2016", station_id: start_station.id, end_station_id: final_station.id,
+                      bike_id: 14, zip_code: 80918, condition_id: condition.id)
+      trip_3        = subscription.trips.create(duration: 200, start_date: "01/01/2016",
+                      end_date: "03/01/2016", station_id: start_station.id, end_station_id: final_station.id,
+                      bike_id: 15, zip_code: 80918, condition_id: condition.id)
+      trip_4        = subscription.trips.create(duration: 200, start_date: "03/01/2016",
+                      end_date: "03/01/2016", station_id: start_station.id, end_station_id: final_station.id,
+                      bike_id: 15, zip_code: 80918, condition_id: condition_2.id)
+
+      expect(Trip.trips_per_date_count.to_s).to eq("1990-01-02")
+      # .strftime("%d/%m/%Y"))
     end
   end
 end

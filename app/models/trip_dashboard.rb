@@ -18,22 +18,22 @@ module TripDashboard
   end
 
   def start_station_with_most_rides
-    return 0 if count.zero?
-    Station.all.max_by do |station|
-      station.trips.count
-    end
+    return "" if count.zero?
+    station = Station.joins(:trips).group(:name).count("id").max
+    station[0]
   end
 
   def end_station_with_most_rides
     return "" if count.zero?
-    ids = Trip.all.group_by {|trip| trip.end_station_id}
-    id  = ids.keys.max_by {|key| ids[key]}
-    Station.find(id)
+    station = Station.joins(:trips).group(:name).count("id").min
+    station[0]
   end
 
-  def rides_per_month
+  def rides_per_month(month, year)
     return "none" if count.zero?
-
+    Trip.all.find_all do |trip|
+      trip.start_date.month == 1 && trip.start_date.year == 2013
+    end
     #Month by Month breakdown of number of rides with subtotals for each year
   end
 
@@ -67,7 +67,6 @@ module TripDashboard
 
   def sub_type_count
     SubscriptionType.all.group_by {|sub| sub.name}
-    #User subscription type breakout with both count and percentage.
   end
 
   def customers
@@ -75,7 +74,7 @@ module TripDashboard
   end
 
   def customer_percentage
-    (customers.to_f / total).round(2) * 100
+    (customers.to_f / total_subs).round(2) * 100
   end
 
   def subscribers
@@ -83,18 +82,19 @@ module TripDashboard
   end
 
   def subscriber_percentage
-    (subscribers.to_f / total).round(2) * 100
+    (subscribers.to_f / total_subs).round(2) * 100
   end
 
   def total_subs
     customers.to_f + subscribers.to_f
   end
 
-  def max_trips_per_date
-    #Single date with the highest number of trips with a count of those trips
+  def trips_per_date_count
+    trips_by_condition = Condition.joins(:trips).group(:date).count("id").max
+    trips_by_condition[0]
   end
 
-  def min_trips_per_Date
+  def min_trips_per_date
     #Single date with the lowest number of trips with a count of those trips
   end
 

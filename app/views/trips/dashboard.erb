@@ -4,11 +4,11 @@
 
 <div class="container">
   <ul class="list-group" id="dashboard">
-    <li class="list-group-item">Total count: <%= Station.count %></li>
-    <li class="list-group-item">Average bikes available per station: <%= Station.average_bikes_per_station %></li>
-    <li class="list-group-item">Most bikes available at a station: <%= Station.max_bike_count %></li>
-    <li class="list-group-item">Station(s) with most available bikes: <%= Station.station_with_most_bikes %></li>
-    <li class="list-group-item">Fewest bikes available at a station: <%= Station.min_bike_count %></li>
+    <li class="list-group-item">Average Duration: <%= Trip.average_duration_of_ride %></li>
+    <li class="list-group-item">Longest Ride: <%= Trip.longest_ride %></li>
+    <li class="list-group-item">Shortest Ride: <%= Trip.shortest_ride %></li>
+    <li class="list-group-item">Station with the most trips: <%= Trip.start_station_with_most_rides %></li>
+    <li class="list-group-item">Station with the fewest trips: <%= Trip.end_station_with_most_rides %></li>
     <li class="list-group-item">Station(s) with fewest available bikes: <%= Station.station_with_fewest_bikes %></li>
     <li class="list-group-item">Most recently installed station: <%= Station.newest_station %></li>
     <li class="list-group-item">Oldest station: <%= Station.oldest_station %></li>
