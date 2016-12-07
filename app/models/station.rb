@@ -39,7 +39,9 @@ class Station < ActiveRecord::Base
     weather.keys.max_by {|key| weather[key]}.inspect
   end
 
-
-
+  def most_frequent_zip_code
+    zip_codes = trips.group_by {|trip| trip.zip_code}
+    zip_codes.keys.max_by {|key| zip_codes[key]} rescue nil
+  end
 
 end
