@@ -55,18 +55,3 @@ describe "user visits /conditions/:id/edit" do
     expect(page).to have_content("1.2")
   end
 end
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#

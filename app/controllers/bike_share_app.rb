@@ -54,24 +54,6 @@ class BikeShareApp < Sinatra::Base
     redirect '/stations'
   end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-########################################
   get '/conditions' do
     redirect '/conditions/page/1'
   end
@@ -121,42 +103,6 @@ class BikeShareApp < Sinatra::Base
     Condition.delete(id)
     redirect '/conditions'
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-############### Trip CRUD ###################
 
   get '/trips' do
     redirect '/trips/page/1'
