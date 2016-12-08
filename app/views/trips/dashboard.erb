@@ -11,7 +11,7 @@
     <li class="list-group-item"><strong>Station with the most rides as ending place: </strong><%= Trip.end_station_with_most_rides %></li>
     <li class="list-group-item"><strong>Most Ridden Bike ID: </strong><%= Trip.best_bike %>(<%= Trip.best_bike_count%> Rides)</li>
     <li class="list-group-item"><strong>Least Ridden Bike ID: </strong><%= Trip.worst_bike %>(<%= Trip.worst_bike_count%> Rides)</li>
-    <li class="list-group-item"><strong>Subscribers: </strong><%= Trip.sub_type_count[1] %>(<%=Trip.sub_percent%>%) Customers: <%= Trip.sub_type_count[0] %>(<%=Trip.cust_percent%>%)</li>
+    <li class="list-group-item"><strong>Subscribers: </strong><%= Trip.sub_type_count[1] %>(<%=Trip.sub_percent%>%) <strong>Customers:</strong> <%= Trip.sub_type_count[0] %>(<%=Trip.cust_percent%>%)</li>
     <li class="list-group-item"><strong>Date with Most Trips: </strong><%= Trip.top_trips_per_date[0].inspect %>, (trips: <%= Trip.top_trips_per_date[1] %>)</li>
     <li class="list-group-item"><strong>Conditions for date with most trips: </strong><a href="/conditions/<%= Trip.conditions_on_top_date %>">Check it out! </a></li>
     <li class="list-group-item"><strong>Date with Least Trips: </strong><%= Trip.lowest_trips_per_date[0].inspect %>, (trips: <%= Trip.lowest_trips_per_date[1] %>)</li>
@@ -42,7 +42,7 @@
   <tbody>
     <tr>
       <td>2013</td>
-    <% (1..12).step(1) do |n|%>
+    <% (8..12).step(1) do |n|%>
         <td><%= Trip.rides_per_month(n, 2013)%></td>
         <% end %>
       </tr>
