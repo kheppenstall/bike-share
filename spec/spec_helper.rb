@@ -21,4 +21,3 @@ RSpec.configure do |c|
 
   c.include Capybara::DSL
 end
-

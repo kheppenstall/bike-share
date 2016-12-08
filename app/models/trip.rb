@@ -1,4 +1,3 @@
-require_relative 'next_previous'
 require_relative 'trip_dashboard'
 require 'time'
 
@@ -7,7 +6,6 @@ class Trip < ActiveRecord::Base
   belongs_to  :station
   belongs_to  :subscription_type
 
-  include NextPrevious
   extend TripDashboard
 
   def end_station

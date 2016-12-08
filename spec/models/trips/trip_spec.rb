@@ -4,7 +4,8 @@ require './spec/spec_helper'
 describe "Trip" do
   describe "attributes" do
     before :each do
-      @trip = Trip.create(duration: 300, start_date: "01/01/2016", end_date: "02/01/2016", end_station_id: 5, bike_id: 14, zip_code: 80918, station_id: 3, condition_id: 2, subscription_type_id: 1)
+      @trip = Trip.create(duration: 300, start_date: "01/01/2016", end_date: "02/01/2016", end_station_id: 5,
+      bike_id: 14, zip_code: 80918, station_id: 3, condition_id: 2, subscription_type_id: 1)
     end
 
     it "has a duraiton" do
