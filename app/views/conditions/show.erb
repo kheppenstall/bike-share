@@ -1,27 +1,28 @@
-<h1><%= @condition.date.inspect %></h1>
+<div class = "container">
+  <h1><%= @condition.date.inspect %></h1>
+</div>
 
-<div>
-  <ul>
-    <li>Max Temperature: <%= @condition.max_temperature %></li>
-    <li>Mean Temperature: <%= @condition.mean_temperature %></li>
-    <li>Mean Temperature: <%= @condition.min_temperature %></li>
-    <li>Mean Humidity: <%= @condition.mean_humidity %></li>
-    <li>Mean Visibility: <%= @condition.mean_visibility %></li>
-    <li>Mean Mean Wind Speed: <%= @condition.mean_wind_speed %></li>
-    <li>Precipitation: <%= @condition.precipitation %></li>
-
+<div class = "container" >
+  <ul class = "list-group" id="dashboard">
+    <li class = "list-group-item">Maximum Temperature: <%= @condition.max_temperature %></li>
+    <li class = "list-group-item">Mean Temperature: <%= @condition.mean_temperature %></li>
+    <li class = "list-group-item">Minimum Temperature: <%= @condition.min_temperature %></li>
+    <li class = "list-group-item">Mean Humidity: <%= @condition.mean_humidity %></li>
+    <li class = "list-group-item">Mean Visibility: <%= @condition.mean_visibility %></li>
+    <li class = "list-group-item">Mean Mean Wind Speed: <%= @condition.mean_wind_speed %></li>
+    <li class = "list-group-item">Precipitation: <%= @condition.precipitation %></li>
   </ul>
 </div>
 
-<a class="btn btn-primary" href="/conditions">
-  <i class="glyphicon glyphicon-circle-arrow-left"></i>
-    Return</a><br>
+<div class="container">
+  <div class="text-center">
+  <a class="btn btn-warning" href="/conditions/<%= @condition.id %>/edit">
+    <i class="glyphicon glyphicon-pencil"></i>
+      Edit</a><br></br>
 
-<a class="btn btn-warning" href="/conditions/<%= @condition.id %>/edit">
-  <i class="glyphicon glyphicon-pencil"></i>
-    Edit</a><br>
-
-<form action="/conditions/<%= @condition.id %>" class="delete-form" method="POST">
-  <input name="_method" type="hidden" value="DELETE"/>
-  <input class="btn btn-danger" type="submit" value="Delete"/>
-</form>
+    <form action="/conditions/<%= @condition.id %>" class="delete-form" method="POST">
+      <input name="_method" type="hidden" value="DELETE"/>
+      <input class="btn btn-danger" type="submit" value="Delete"/>
+    </form>
+  </div>
+</div>

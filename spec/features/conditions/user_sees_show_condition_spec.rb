@@ -20,9 +20,8 @@ describe "when user visits /conditions/:id" do
   end
 
   it "user returns to index" do
-    visit("/conditions/#{@condition.id}")
+    visit("/conditions/page/#{@condition.id}")
 
-    click_on "Return"
 
     expect(current_path).to eq("/conditions/page/1")
   end
