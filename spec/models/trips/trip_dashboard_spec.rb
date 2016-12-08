@@ -266,28 +266,50 @@ describe "Trip Dashboardd" do
     end
   end
 
-#     it "returns the total number of subscription types" do
-#       subscription    = SubscriptionType.create(name: "Customer")
-#       subscription_2  = SubscriptionType.create(name: "Subscriber")
-#       subscription_3  = SubscriptionType.create(name: "Subscriber")
-#
-#       expect(Trip.total_subs).to eq(3)
-#     end
-#
-#     it "returns the subscription types percentages" do
-#       subscription    = SubscriptionType.create(name: "Customer")
-#       subscription_2  = SubscriptionType.create(name: "Subscriber")
-#       subscription_3  = SubscriptionType.create(name: "Subscriber")
-#
-#       expect(Trip.customer_percentage).to eq(33.0)
-#       expect(Trip.subscriber_percentage).to eq(67.0)
-#     end
+  describe ".top_trips_per_date" do
+    it "returns the date with the highest trip count" do
+      start_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
+      final_station = Station.create(name: "Dock1", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
+      subscription  = SubscriptionType.create(name: "Customer")
+      subscription_1  = SubscriptionType.create(name: "Subscriber")
+      condition     = Condition.create(date: "02/01/1990")
+      trip          = subscription.trips.create(duration: 300, start_date: "01/01/2016",
+                      end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
+                      bike_id: 14, zip_code: 80918, condition_id: condition.id)
+      trip_2        = subscription.trips.create(duration: 200, start_date: "01/01/2016",
+                      end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
+                      bike_id: 14, zip_code: 80918, condition_id: condition.id)
+      trip_3        = subscription_1.trips.create(duration: 200, start_date: "01/01/2016",
+                      end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
+                      bike_id: 15, zip_code: 80918, condition_id: condition.id)
 
-#
-#   describe ".conditions_on_top_date" do
-#     it "returns the conditions on the top date with the most trips" do
-#
-#       expect(Trip.conditions_on_top_date).to eq("something")
-#     end
-#   end
+      expect((Trip.top_trips_per_date).class).to eq(Array)
+      expect((Trip.top_trips_per_date[0]).class).to eq(Date)
+      expect((Trip.top_trips_per_date[1]).class).to eq(Fixnum)
+      expect(Trip.top_trips_per_date[1]).to eq(3)
+    end
+  end
+
+  describe ".lowest_trips_per_date" do
+    it "returns the date with the lowest trip count" do
+      start_station = Station.create(name: "Dock", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
+      final_station = Station.create(name: "Dock1", dock_count: 20, installation_date: "01/01/2015", city_id: 1)
+      subscription  = SubscriptionType.create(name: "Customer")
+      subscription_1  = SubscriptionType.create(name: "Subscriber")
+      condition     = Condition.create(date: "02/01/1990")
+      trip          = subscription.trips.create(duration: 300, start_date: "01/01/2016",
+                      end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
+                      bike_id: 14, zip_code: 80918, condition_id: condition.id)
+      trip_2        = subscription.trips.create(duration: 200, start_date: "01/01/2016",
+                      end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
+                      bike_id: 14, zip_code: 80918, condition_id: condition.id)
+      trip_3        = subscription_1.trips.create(duration: 200, start_date: "02/01/2016",
+                      end_date: "02/01/2016", station_id: start_station.id, end_station_id: final_station.id,
+                      bike_id: 15, zip_code: 80918, condition_id: condition.id)
+
+      expect((Trip.lowest_trips_per_date).class).to eq(Array)
+      expect((Trip.lowest_trips_per_date[0]).class).to eq(Date)
+      expect((Trip.lowest_trips_per_date[1]).class).to eq(Fixnum)
+    end
+  end
 end
