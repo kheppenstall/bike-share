@@ -42,7 +42,7 @@
   <tbody>
     <tr>
       <td>2013</td>
-    <% (8..12).step(1) do |n|%>
+    <% (1..12).step(1) do |n|%>
         <td><%= Trip.rides_per_month(n, 2013)%></td>
         <% end %>
       </tr>
