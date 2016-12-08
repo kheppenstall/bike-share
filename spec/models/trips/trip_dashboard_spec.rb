@@ -149,7 +149,7 @@ describe "Trip Dashboardd" do
 
     it "retruns none if there are no trips" do
 
-      expect(Trip.rides_per_month(1, 2016)).to eq("none")
+      expect(Trip.rides_per_month(1, 2016)).to eq(0)
     end
   end
 

@@ -7,8 +7,4 @@ class Condition < ActiveRecord::Base
   validates :date,    presence: true, uniqueness: true
 
   extend ConditionDashboard
-
-  def weather_information
-    "#{date}, #{max_temperature}, #{mean_temperature}, #{min_temperature}, #{mean_humidity}, #{mean_visibility}, #{mean_wind_speed}, #{precipitation}"
-  end
 end
