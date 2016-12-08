@@ -31,7 +31,7 @@ module TripDashboard
   end
 
   def rides_per_month(mon, yea)
-    return "none" if count.zero?
+    return 0 if count.zero?
     month_trips = Trip.where('extract(month FROM start_date) = ?',mon)
     year_trips = month_trips.where('extract(year FROM start_date)= ?', yea)
     year_trips.count
