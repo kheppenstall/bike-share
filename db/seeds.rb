@@ -73,6 +73,8 @@ parse('./db/csv/trip.csv').each do |row|
   end_station_id    = end_station.id rescue nil
   end_date          = Date.strptime(row[:end_date], "%m/%d/%Y %H:%M").strftime("%m/%d/%Y")
   start_date        = Date.strptime(row[:start_date], "%m/%d/%Y %H:%M").strftime("%m/%d/%Y")
+
+  # start_date        = Date.strptime(row[:start_date], "%m/%d/%Y %H:%M").strftime("%m/%d/%Y")
   condition         = Condition.find_by(date: start_date)
   condition_id      = condition.id rescue nil
 
