@@ -1,5 +1,3 @@
-require 'pry'
-
 module TripDashboard
 
   def average_duration_of_ride
@@ -20,9 +18,7 @@ module TripDashboard
   def start_station_with_most_rides
     return "" if count.zero?
     station = Station.joins(:trips).group(:name).count("id")
-    station.keys.max_by do |key|
-      station[key]
-    end
+    station.keys.max_by {|key| station[key]}
   end
 
   def end_station_with_most_rides
@@ -95,13 +91,11 @@ module TripDashboard
   end
 
   def conditions_on_top_date
-    conditions = Condition.find_by(date: top_trips_per_date[0])
-    conditions.id
+    Condition.find_by(date: top_trips_per_date[0]).id rescue 1
   end
 
   def conditions_on_worst_date
-    conditions = Condition.find_by(date: lowest_trips_per_date[0])
-    conditions.id
+    Condition.find_by(date: lowest_trips_per_date[0]).id rescue 1
   end
 
 end
