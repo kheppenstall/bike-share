@@ -24,6 +24,7 @@ describe "user visits /trips/:id/edit" do
   end
 
   it "and clicks submit" do
+
     visit("/trips/#{@trip.id}/edit")
 
     fill_in "trip[bike_id]", with: 15
@@ -32,5 +33,11 @@ describe "user visits /trips/:id/edit" do
     fill_in "trip[end_date]", with: "01/04/2016 01:00:00"
 
     click_on("Submit")
+
+    expect(current_path).to eq("/trips/#{@trip.id}")
+    expect(page).to have_content(15)
+    expect(page).to_not have_content(14)
+    expect(page).to have_content(80919)
+    expect(page).to_not have_content(80918)
   end
 end
