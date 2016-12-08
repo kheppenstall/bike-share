@@ -24,9 +24,7 @@ module TripDashboard
   def end_station_with_most_rides
     return "" if count.zero?
     trips = Trip.joins(:station).group(:end_station_id).count("id")
-    station_id = trips.keys.max_by do |key|
-      trips[key]
-    end
+    station_id = trips.keys.max_by {|key|trips[key]}
     Station.find(station_id).name
   end
 
@@ -51,9 +49,7 @@ module TripDashboard
 
   def worst_bike
     bikes = Trip.group(:bike_id).count("id")
-    bikes.keys.min_by do |key|
-      bikes[key]
-    end
+    bikes.keys.min_by {|key|bikes[key]}
   end
 
   def worst_bike_count
