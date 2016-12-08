@@ -55,7 +55,7 @@
       </tr>
     </thead>
     <tbody>
-      <% (5..10).step(5) do |n| %>
+      <% (0..10).step(5) do |n| %>
       <tr>
         <td><%= "#{n} to #{n + 5}" %></td>
         <td><%= Condition.average_number_of_rides_from_visibility(n) %></td>

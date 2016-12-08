@@ -81,7 +81,7 @@ class BikeShareApp < Sinatra::Base
   end
 
   get '/conditions/page/:num' do |page_num|
-    @conditions = on_page(Condition.all, page_num.to_i)
+    @conditions = on_page(Condition, page_num.to_i)
     @next = next_page(page_num.to_i, Condition.count)
     @previous = previous_page(page_num.to_i)
     erb :"conditions/index"
