@@ -1,0 +1,65 @@
+<div class="containter">
+  <h1>Create a Trip</h1>
+</div>
+
+<div class="container">
+<form action="/trips" method="POST">
+
+  <h4>Starting information</h4>
+  <div class="form-group">
+    <label for="start_station">Start Station:</label>
+    <select class="form-control" id="start_station" name="trip[start_station_name]">
+      <% @stations.each do |station| %>
+        <option><%= station.name %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Start Date:</label>
+    <input type="datetime-local" name="trip[start_date]" class="form control"/><br>
+    <p><strong>Please enter a start date!</strong></p><br>
+  </div>
+
+  <h4>Ending information</h4>
+
+  <div class="form-group">
+    <label for="end_station">End Station:</label>
+    <select class="form-control" id="end_station" name="trip[end_station_name]">
+      <% @stations.each do |station| %>
+        <option><%= station.name %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>End Date:</label>
+    <input type="datetime-local" name="trip[end_date]" class="form control"/><br>
+    <p><strong>Please enter a end date!</strong></p><br>
+  </div>
+
+  <h4>Other information</h4>
+
+  <div class="form-group">
+    <label>Bike ID: </label>
+    <input type="integer" name="trip[bike_id]" class="form control"/><br>
+  </div>
+
+  <div class="form-group">
+    <label>Zip Code: </label>
+    <input type="integer" name="trip[zip_code]" class="form control" /><br>
+  </div>
+
+  <div class="form-group">
+    <label for="start_station">Subscription Type:</label>
+    <select class="form-control" id="start_station" name="trip[subscription_type]">
+      <% @subscription_types.each do |type| %>
+        <option><%= type.name %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+</div>

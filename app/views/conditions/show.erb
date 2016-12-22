@@ -1,0 +1,28 @@
+<div class = "container">
+  <h1><%= @condition.date.inspect %></h1>
+</div>
+
+<div class = "container" >
+  <ul class = "list-group" id="dashboard">
+    <li class = "list-group-item">Maximum Temperature (F): <%= @condition.max_temperature %></li>
+    <li class = "list-group-item">Mean Temperature (F): <%= @condition.mean_temperature %></li>
+    <li class = "list-group-item">Minimum Temperature (F): <%= @condition.min_temperature %></li>
+    <li class = "list-group-item">Mean Humidity (%): <%= @condition.mean_humidity %></li>
+    <li class = "list-group-item">Mean Visibility (Pc): <%= @condition.mean_visibility %></li>
+    <li class = "list-group-item">Mean Mean Wind Speed (Mph): <%= @condition.mean_wind_speed %></li>
+    <li class = "list-group-item">Precipitation (Inches): <%= @condition.precipitation %></li>
+  </ul>
+</div>
+
+<div class="container">
+  <div class="text-center">
+  <a class="btn btn-warning" href="/conditions/<%= @condition.id %>/edit">
+    <i class="glyphicon glyphicon-pencil"></i>
+      Edit</a><br></br>
+
+    <form action="/conditions/<%= @condition.id %>" class="delete-form" method="POST">
+      <input name="_method" type="hidden" value="DELETE"/>
+      <input class="btn btn-danger" type="submit" value="Delete"/>
+    </form>
+  </div>
+</div>

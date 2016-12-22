@@ -1,0 +1,34 @@
+<div class = "container">
+  <h1><%= @station.name %></h1>
+</div>
+
+<div class = "container" >
+  <ul class = "list-group" id="dashboard">
+    <li class = "list-group-item">City: <%= @station.city.name %></li>
+    <li class = "list-group-item">Dock Count: <%= @station.dock_count %></li>
+    <li class = "list-group-item">Installation Date: <%= @station.installation_date.inspect %></li>
+    <li class = "list-group-item">Rides Started at Station: <%= @station.rides_started_at_station %></li>
+    <li class = "list-group-item">Rides Ended at Station: <%= @station.rides_ended_at_station %></li>
+    <li class = "list-group-item">Most Frequent Destination Station: <%= @station.most_frequent_destination %></li>
+    <li class = "list-group-item">Most Frequent Origin Station: <%= @station.most_frequent_origin %></li>
+    <li class = "list-group-item">Date With Most Rides: <%= @station.date_with_most_trips %></li>
+    <li class = "list-group-item">Most Frequent Zip Code of Riders: <%= @station.most_frequent_zip_code %></li>
+    <li class = "list-group-item">Most Frequently Used Bike (id): <%= @station.most_frequent_bike_id %></li>
+
+
+
+  </ul>
+</div>
+
+<div class="container">
+  <div class="text-center">
+  <a class="btn btn-warning" href="/stations/<%= @station.id %>/edit">
+    <i class="glyphicon glyphicon-pencil"></i>
+      Edit</a><br></br>
+
+    <form action="/stations/<%= @station.id %>" class="delete-form" method="POST">
+      <input name="_method" type="hidden" value="DELETE"/>
+      <input class="btn btn-danger" type="submit" value="Delete"/>
+    </form>
+  </div>
+</div>

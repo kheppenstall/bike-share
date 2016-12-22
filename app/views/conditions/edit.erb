@@ -1,0 +1,54 @@
+<div class="container">
+  <h1>Edit Condition for <%= @condition.date.inspect %></h1>
+</div>
+
+<form action="/conditions/<%= @condition.id %>" method="POST">
+
+  <div class="form-group">
+    <input type="hidden" name="_method" value="PUT"/>
+  </div>
+
+  <div class="form-group">
+    <label>Date:</label>
+    <input type="date" name="condition[date]" class="form control" value="<%= @condition.date.inspect %>"/><br>
+  </div>
+
+  <div class="form-group">
+    <label>Max Temperature:</label>
+    <input type="integer" name="condition[max_temperature]" class="form control" value="<%= @condition.max_temperature %>"/><br>
+  </div>
+
+  <div class="form-group">
+    <label>Mean Temperature:</label>
+    <input type="integer" name="condition[mean_temperature]" class="form control" value="<%= @condition.mean_temperature %>"/><br>
+  </div>
+
+  <div class="form-group">
+    <label>Minimum Temperature:</label>
+    <input type="integer" name="condition[min_temperature]" class="form control" value="<%= @condition.min_temperature %>"/><br>
+  </div>
+
+  <div class="form-group">
+    <label>Mean Humidity:</label>
+    <input type="integer" name="condition[mean_humidity]" class="form control" value="<%= @condition.mean_humidity %>"/><br>
+  </div>
+
+  <div class="form-group">
+    <label>Mean Visibility:</label>
+    <input type="integer" name="condition[mean_visibility]" class="form control" value="<%= @condition.mean_visibility %>"/><br>
+  </div>
+
+  <div class="form-group">
+    <label>Mean Wind Speed:</label>
+    <input type="integer" name="condition[mean_wind_speed]" class="form control" value="<%= @condition.mean_wind_speed %>"/><br>
+  </div>
+
+  <div class="form-group">
+    <label>Precipitation:</label>
+    <input type="float" name="condition[precipitation]" class="form control" value="<%= @condition.precipitation %>"/><br>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+</div>

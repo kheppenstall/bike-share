@@ -1,0 +1,46 @@
+<div class="container">
+  <h1>Update Station</h1>
+</div>
+
+<div class="container">
+<form action="/stations/<%= @station.id %>" method="POST">
+
+  <div class="form-group">
+    <input type="hidden" name="_method" value="PUT"/>
+  </div>
+
+  <div class="form-group">
+    <label>Name:</label>
+    <input type="text" name="station[name]" class="form control" value="<%= @station.name %>"/><br>
+  </div>
+
+  <div class="form-group">
+    <label>Dock Count:</label>
+    <input type="integer" name="station[dock_count]" class="form control" value="<%= @station.dock_count %>"/><br>
+  </div>
+
+  <div class="form-group">
+    <label>Installation Date:</label>
+    <input type="date" name="station[installation_date]" class="form control" value="<%= @station.installation_date %>"/><br>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="city">City:</label>
+          <select class="form-control" id="city" name="city" value="<%= @station.city.name %>">
+            <% @cities.each do |city| %>
+              <option><%= city.name %></option>
+            <% end %>
+          </select>
+          <label>Current city: <%= @station.city.name %></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+</div>
